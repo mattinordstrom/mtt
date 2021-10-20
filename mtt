@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo "MTT - Mattis Terminal Toolkit"
+
+if [ $# -eq 0 ]; then
+  echo "No arguments. Use mtt --help to see available commands"
+elif [ $1 = "--help" ] || [ $1 = "-h" ]; then
+  echo "Help section... Run mtt test to run test.."
+elif [ $1 = "test" ]; then
+  "`dirname "$0"`"/mtt_scripts/test
+else
+  echo "Invalid arguments. Use mtt --help to see available commands"
+fi
