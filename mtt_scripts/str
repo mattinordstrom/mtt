@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]; then
+  printf "No arguments. Use mtt str -h to see available commands"
+elif [ $1 = "--help" ] || [ $1 = "-h" ]; then
+  printf "\n"
+  tput bold; tput setaf 2; printf "##### MTT - Mattis Terminal Toolkit #####\n"
+  printf "## STR\n"; tput sgr0;
+  printf "\n"
+  printf "USAGE:\n"
+  printf "\n"
+  printf "  -h, --help        Shows this help\n"
+  printf "  mtt str sortcc    Sorts the clipboard content\n"
+elif [ $1 = "sortcc" ]; then
+  "`dirname "$0"`"/str_scripts/sortcc
+else
+  printf "Invalid arguments. Use mtt str -h to see available commands"
+fi

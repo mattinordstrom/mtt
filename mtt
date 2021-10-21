@@ -9,9 +9,9 @@ elif [ $1 = "--help" ] || [ $1 = "-h" ]; then
   printf "USAGE:\n"
   printf "\n"
   printf "  -h, --help        Shows this help\n"
-  printf "  mtt test          Runs test script\n"
-elif [ $1 = "test" ]; then
-  "`dirname "$0"`"/mtt_scripts/test $2
+  printf "  mtt str           String modification scripts. Run mtt str -h for help\n"
+elif [ $1 = "str" ]; then
+  "`dirname "$0"`"/mtt_scripts/str $2
 else
   printf "Invalid arguments. Use mtt -h to see available commands"
 fi
