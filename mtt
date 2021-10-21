@@ -1,13 +1,17 @@
 #!/bin/bash
 
-echo "MTT - Mattis Terminal Toolkit"
-
 if [ $# -eq 0 ]; then
-  echo "No arguments. Use mtt --help to see available commands"
+  printf "No arguments. Use mtt -h to see available commands"
 elif [ $1 = "--help" ] || [ $1 = "-h" ]; then
-  echo "Help section... Run mtt test to run test.."
+  printf "\n"
+  tput bold; tput setaf 2; printf "##### MTT - Mattis Terminal Toolkit #####\n"; tput sgr0;
+  printf "\n"
+  printf "USAGE:\n"
+  printf "\n"
+  printf "  -h, --help        Shows this help\n"
+  printf "  mtt test          Runs test script\n"
 elif [ $1 = "test" ]; then
-  "`dirname "$0"`"/mtt_scripts/test
+  "`dirname "$0"`"/mtt_scripts/test $2
 else
-  echo "Invalid arguments. Use mtt --help to see available commands"
+  printf "Invalid arguments. Use mtt -h to see available commands"
 fi
