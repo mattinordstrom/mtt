@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]; then
+  printf "No string specified. Usage: mtt base64 <string>"
+else
+  printf "Encoded: "; echo $1 | base64
+  printf "Decoded: "; echo $1 | base64 --decode
+fi
+
+

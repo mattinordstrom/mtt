@@ -8,10 +8,26 @@ elif [ $1 = "--help" ] || [ $1 = "-h" ]; then
   printf "\n"
   printf "USAGE:\n"
   printf "\n"
-  printf "  -h, --help        Shows this help\n"
-  printf "  mtt str           String modification scripts. Run mtt str -h for help\n"
-elif [ $1 = "str" ]; then
-  "`dirname "$0"`"/mtt_scripts/str $2
+  printf "  -h, --help           Shows this help\n\n"
+  printf "String handling:\n"
+  printf "  mtt sortcc           Sorts the clipboard content.\n"
+  printf "  mtt base64 <string>  Encode/decode base64 string.\n "
+  printf "\n"
+  printf "Stats:\n" 
+  printf "  mtt portuse <port>   Display which process is using specific port.\n"
+  printf "\n"
+  printf "Dev tools:\n"  
+  printf "  mtt localkafka       Starts local kafka server.\n"
+elif [ $1 = "sortcc" ]; then
+  "`dirname "$0"`"/mtt_scripts/sortcc
+elif [ $1 = "base64" ]; then
+  "`dirname "$0"`"/mtt_scripts/base64 $2
+elif [ $1 = "portuse" ]; then
+  "`dirname "$0"`"/mtt_scripts/portuse $2
+elif [ $1 = "localkafka" ]; then
+  "`dirname "$0"`"/mtt_scripts/localkafka
 else
   printf "Invalid arguments. Use mtt -h to see available commands"
 fi
+
+printf "\n"
