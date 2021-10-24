@@ -1,8 +1,19 @@
 #!/bin/bash
 
+# scriptType; description; params...
+declare -A scripts
+scripts[sortcc]="stringScripts;Sorts the clipboard content.;";
+scripts[base64]="stringScripts;Encode/decode base64 string.;string;";
+
+scripts[portuse]="statScripts;Display which process is using specific port.;port"
+scripts[topcpu]="statScripts;Displays top CPU usage."
+scripts[topmem]="statScripts;Displays top MEM usage."
+
+scripts[localkafka]="devScripts;Starts local kafka server."
+
 if [ $# -eq 0 ]; then
   printf "No arguments. Use mtt -h to see available commands"
-elif [ $1 = "--help" ] || [ $1 = "-h" ]; then
+elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
   printf "\n"
   tput bold; tput setaf 2; printf "##### MTT - Mattis Terminal Toolkit #####\n"; tput sgr0;
   printf "\n"
@@ -20,20 +31,27 @@ elif [ $1 = "--help" ] || [ $1 = "-h" ]; then
   printf "\n"
   printf "Dev tools:\n"  
   printf "  mtt localkafka       Starts local kafka server.\n"
-elif [ $1 = "sortcc" ]; then
-  "`dirname "$0"`"/mtt_scripts/sortcc
-elif [ $1 = "base64" ]; then
-  "`dirname "$0"`"/mtt_scripts/base64 $2
-elif [ $1 = "portuse" ]; then
-  "`dirname "$0"`"/mtt_scripts/portuse $2
-elif [ $1 = "topcpu" ]; then
-  "`dirname "$0"`"/mtt_scripts/topcpu
-elif [ $1 = "topmem" ]; then
-  "`dirname "$0"`"/mtt_scripts/topmem
-elif [ $1 = "localkafka" ]; then
-  "`dirname "$0"`"/mtt_scripts/localkafka
 else
-  printf "Invalid arguments. Use mtt -h to see available commands"
+  validScript=false
+  for key in "${!scripts[@]}"; 
+  do
+    value=${scripts[$key]} 
+    IFS=";" read -r -a arr <<< "${value}"
+    #echo "$value"
+    #echo "scriptType: ""${arr[0]}"""
+    #echo "description: ""${arr[1]}"""
+    #echo "param: ""${arr[2]}"""
+    #echo "param2: ""${arr[3]}"""
+    #echo "param3: ""${arr[4]}"""
+    if [ "$1" = "$key" ]; then
+      validScript=true
+    fi
+  done
+  if [ "$validScript" = true ]; then
+    "$(dirname "$0")"/mtt_scripts/"$1" "$2" "$3"
+  else
+    printf "Invalid arguments. Use mtt -h to see available commands"
+  fi
 fi
 
 printf "\n"
