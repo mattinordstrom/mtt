@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $# -eq 0 ]; then
+if [ $# -eq 0 ] || [ -z "$1" ]; then
   printf "No string specified. Usage: mtt base64 <string>"
 else
   printf "Encoded: "; echo $1 | base64

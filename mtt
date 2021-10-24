@@ -2,14 +2,15 @@
 
 # scriptType; description; params...
 declare -A scripts
-scripts[sortcc]="stringScripts;Sorts the clipboard content.;";
 scripts[base64]="stringScripts;Encode/decode base64 string.;string;";
+scripts[sortcc]="stringScripts;Sorts the clipboard content.;";
 
 scripts[portuse]="statScripts;Display which process is using specific port.;port"
 scripts[topcpu]="statScripts;Displays top CPU usage."
 scripts[topmem]="statScripts;Displays top MEM usage."
 
 scripts[localkafka]="devScripts;Starts local kafka server."
+
 
 if [ $# -eq 0 ]; then
   printf "No arguments. Use mtt -h to see available commands"
@@ -21,28 +22,59 @@ elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
   printf "\n"
   printf "  -h, --help           Shows this help\n\n"
   printf "String handling:\n"
-  printf "  mtt sortcc           Sorts the clipboard content.\n"
-  printf "  mtt base64 <string>  Encode/decode base64 string.\n "
+  for key in "${!scripts[@]}";
+  do
+    value=${scripts[$key]}
+    IFS=";" read -r -a arr <<< "${value}"
+    scriptType="${arr[0]}"
+    description="${arr[1]}"
+    param="${arr[2]}"
+    if [ "$scriptType" = "stringScripts" ]; then
+      if [ -z "$param" ]; then
+        printf "  mtt %s           $description\n" "$key"
+      else
+        printf "  mtt %s <%s>  $description\n" "$key" "$param"
+      fi
+    fi
+  done
   printf "\n"
   printf "Stats:\n" 
-  printf "  mtt portuse <port>   Display which process is using specific port.\n"
-  printf "  mtt topcpu           Displays top CPU usage.\n"
-  printf "  mtt topmem           Displays top MEM usage.\n"
+  for key in "${!scripts[@]}";
+  do
+    value=${scripts[$key]}
+    IFS=";" read -r -a arr <<< "${value}"
+    scriptType="${arr[0]}"
+    description="${arr[1]}"
+    param="${arr[2]}"
+    if [ "$scriptType" = "statScripts" ]; then
+      if [ -z "$param" ]; then
+        printf "  mtt %s           $description\n" "$key"
+      else
+        printf "  mtt %s <%s>   $description\n" "$key" "$param"
+      fi
+    fi
+  done
   printf "\n"
   printf "Dev tools:\n"  
-  printf "  mtt localkafka       Starts local kafka server.\n"
+  for key in "${!scripts[@]}";
+  do
+    value=${scripts[$key]}
+    IFS=";" read -r -a arr <<< "${value}"
+    scriptType="${arr[0]}"
+    description="${arr[1]}"
+    param="${arr[2]}"
+    if [ "$scriptType" = "devScripts" ]; then
+      if [ -z "$param" ]; then
+        printf "  mtt %s       $description\n" "$key"
+      else
+        printf "  mtt %s <%s>   $description\n" "$key" "$param"
+      fi
+    fi
+  done
 else
   validScript=false
   for key in "${!scripts[@]}"; 
   do
-    value=${scripts[$key]} 
-    IFS=";" read -r -a arr <<< "${value}"
-    #echo "$value"
-    #echo "scriptType: ""${arr[0]}"""
-    #echo "description: ""${arr[1]}"""
-    #echo "param: ""${arr[2]}"""
-    #echo "param2: ""${arr[3]}"""
-    #echo "param3: ""${arr[4]}"""
     if [ "$1" = "$key" ]; then
       validScript=true
     fi

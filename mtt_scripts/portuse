@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $# -eq 0 ]; then
+if [ $# -eq 0 ] || [ -z "$1" ]; then
   printf "No port specified. Usage: mtt portuse <port>"
 else
   netstat -aln -p tcp | grep -w :$1
