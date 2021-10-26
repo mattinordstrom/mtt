@@ -4,6 +4,7 @@ if [ $# -eq 0 ] || [ -z "$1" ]; then
   printf "Current timestamp (now): "; echo $(date +%s)
 else
   if [[ $1 == *"-"* ]]; then
+    printf "Timestamp ($1): "; date -d "$1" +%s
     printf "Timestamp ($1) UTC+1: "; date -d "$1 UTC+1" +%s
     printf "Timestamp ($1) UTC+2: "; date -d "$1 UTC+2" +%s
   else
