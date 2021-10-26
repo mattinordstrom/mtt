@@ -2,14 +2,15 @@
 
 # scriptType; description; params...
 declare -A scripts
-scripts[base64]="stringScripts;Encode/decode base64 string.;string;";
-scripts[sortcc]="stringScripts;Sorts the clipboard content.;";
+scripts[base64]="stringScripts;   Encode/decode base64 string.;string;";
+scripts[sortcc]="stringScripts;   Sorts the clipboard content.;";
+scripts[timestamp]="stringScripts;Converts timestamp (ms) or date string (\"yyyy-mm-dd hh:mm:ss\"). If no arg current timestamp is printed.;?string;"
 
-scripts[portuse]="statScripts;Display which process is using specific port.;port"
-scripts[topcpu]="statScripts;Displays top CPU usage."
-scripts[topmem]="statScripts;Displays top MEM usage."
+scripts[portuse]="statScripts;   Display which process is using specific port.;port"
+scripts[topcpu]="statScripts;   Displays top CPU usage."
+scripts[topmem]="statScripts;   Displays top MEM usage."
 
-scripts[localkafka]="devScripts;Starts local kafka server."
+scripts[localkafka]="devScripts;   Starts local kafka server."
 
 
 if [ $# -eq 0 ]; then
