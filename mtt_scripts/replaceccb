@@ -2,9 +2,20 @@
 
 xclip -selection clipboard -o | sed "s/$1.*$2/$1$3$2/g"
 
+
+
 # Example double qoutes in content (use single qoutes in params!)
 #
 #   <div class="menu menuitem_start" onclick=...
 #   <div class="menu menuitem_faq" onclick=...
 #
 # mtt replaceccb 'class=\"menu ' '\" onclick' 'menuitem_same'
+
+
+# Example single qoutes in content and slash (use double qoutes in params and escape slash!)
+#
+#   "Line 1: You have a robot"+ '<br/>'+
+#   "Line 2: Trees have green"+ '<br/>'+
+#
+# mtt replaceccb "'<br\/>" "'+" "<br\/>"
+
