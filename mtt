@@ -3,14 +3,16 @@
 # scriptType; description; params...
 declare -A scripts
 scripts[base64]="stringScripts;   Encode/decode base64 string.;string;";
+scripts[ric]="stringScripts;   Read file content into clipboard;filename";
 scripts[sortcc]="stringScripts;   Sorts the clipboard content.;";
-scripts[timestamp]="stringScripts;Converts timestamp (ms) or date string (\"yyyy-mm-dd hh:mm:ss\"). If no arg current timestamp is printed.;?string;"
+scripts[replacecc]="stringScripts;   Replaces given string with new string in clipboard content.;find;new_string;";
 
 scripts[portuse]="statScripts;   Display which process is using specific port.;port"
 scripts[topcpu]="statScripts;   Displays top CPU usage."
 scripts[topmem]="statScripts;   Displays top MEM usage."
 
 scripts[localkafka]="devScripts;   Starts local kafka server."
+scripts[timestamp]="devScripts;Converts timestamp (ms) or date string (\"yyyy-mm-dd hh:mm:ss\"). If no arg current timestamp is printed.;?string;"
 
 
 if [ $# -eq 0 ]; then
@@ -30,6 +32,7 @@ elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
     scriptType="${arr[0]}"
     description="${arr[1]}"
     param="${arr[2]}"
+#TODO! param2
     if [ "$scriptType" = "stringScripts" ]; then
       if [ -z "$param" ]; then
         printf "  mtt %s           $description\n" "$key"
