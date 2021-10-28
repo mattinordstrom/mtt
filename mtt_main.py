@@ -41,6 +41,7 @@ scripts.append(scriptInfo('portuse', 'STATS', 'Display which process is using a 
 scripts.append(scriptInfo('topcpu', 'STATS', 'Displays top CPU usage.', []))
 scripts.append(scriptInfo('topmem', 'STATS', 'Displays top MEM usage.', []))
 
+scripts.append(scriptInfo('versions', 'DEV_TOOLS', 'Prints java, PHP, node, npm version info.', []))
 scripts.append(scriptInfo('timestamp', 'DEV_TOOLS', 'Converts timestamp (ms) or date string (\"yyyy-mm-dd hh:mm:ss\"). \nIf no arg is passed the current timestamp (now) is printed.', ['?string']))
 scripts.append(scriptInfo('localkafka', 'DEV_TOOLS', 'Starts local kafka server.', []))
 

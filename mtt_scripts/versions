@@ -1,0 +1,17 @@
+#!/bin/bash
+
+printf "\n"
+
+printf "PHP: "; php -r 'echo phpversion();'
+printf "\n"
+printf "XDEBUG: "; php -r 'echo phpversion("xdebug");'
+
+printf "\n"
+printf "\n"
+
+printf "NODE: "; node -v
+printf "NPM: "; npm -v
+
+printf "\n"
+
+printf "JAVA: "; java -version 2>&1 | grep version
