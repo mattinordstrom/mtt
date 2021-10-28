@@ -31,7 +31,7 @@ paramsAsString = '"' + '" "'.join(sys.argv[2:]) + '"'
 #param1 = sys.argv[2]
 
 scripts = [] 
-scripts.append(scriptInfo('toc', 'STRINGS', 'To clipboard. Read file content into clipboard.', ['filepath']))
+scripts.append(scriptInfo('toc', 'STRINGS', 'To clipboard. Read file content or echo into clipboard.', ['?filepath']))
 scripts.append(scriptInfo('fromc', 'STRINGS', 'From clipboard. Outputs clipboard content.', []))
 scripts.append(scriptInfo('replacecc', 'STRINGS', 'Replaces given string with a new string in clipboard content.', ['find', 'new_string']))
 scripts.append(scriptInfo('replaceccb', 'STRINGS', 'Replaces string between two strings in clipboard content. \nI.e <\"I have\"> <\"bananas\"> <\"99\">. I have 99 bananas', ['before', 'after', 'string']))
