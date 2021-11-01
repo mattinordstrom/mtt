@@ -11,7 +11,8 @@ ENDC = '\033[0m'
 
 scriptCategories = {'STRINGS': 'String handling', 
                     'STATS': 'Stats', 
-                    'DEV_TOOLS': 'Dev tools'}
+                    'DEV_TOOLS': 'Dev tools',
+                    'MISC': 'Misc'}
 
 class scriptInfo: 
     def __init__(self, name, category, description, params): 
@@ -44,6 +45,8 @@ scripts.append(scriptInfo('topmem', 'STATS', 'Displays top MEM usage.', []))
 scripts.append(scriptInfo('versions', 'DEV_TOOLS', 'Prints java, PHP, node, npm version info.', []))
 scripts.append(scriptInfo('timestamp', 'DEV_TOOLS', 'Converts timestamp (ms) or date string (\"yyyy-mm-dd hh:mm:ss\"). \nIf no arg is passed the current timestamp (now) is printed.', ['?string']))
 scripts.append(scriptInfo('localkafka', 'DEV_TOOLS', 'Starts local kafka server.', []))
+
+scripts.append(scriptInfo('find', 'MISC', 'Find file with name. (Default directory is ~)', ['pattern', '?directory']))
 
 if scriptName in ['h', 'help', '-h', '-help', '--h', '--help']:
   print('\n')

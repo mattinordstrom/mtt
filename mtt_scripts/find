@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ -z "$2" ]; then
+  find ~ -name "$1"
+else
+  find "$2" -name "$1"
+fi
+
+
+# Example find pdf containing Test in filename
+# mtt find "*.pdf" | grep -i test
