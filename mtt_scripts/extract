@@ -1,0 +1,22 @@
+#!/bin/bash
+
+fileName=$1
+
+if [ "${fileName:(-3)}" == "tar" ] || [ "${fileName:(-6)}" == "tar.gz" ] || [ "${fileName:(-6)}" == "tar.xz" ]; then
+    #echo "TAR!"
+    tar -xf "$fileName"
+elif [ "${fileName:(-2)}" == "gz" ]; then
+    #echo "GZ!"
+    gzip -dk "$fileName"
+elif [ "${fileName:(-2)}" == "7z" ]; then
+    #echo "7Z!"
+    p7zip -d -k "$fileName"
+elif [ "${fileName:(-3)}" == "zip" ]; then
+    #echo "ZIP!"
+    unzip "$fileName"
+else
+    #echo "else"
+    unzip "$fileName"
+fi
+
+

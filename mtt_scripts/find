@@ -3,7 +3,7 @@
 if [ -z "$2" ]; then
   find ~ -name "$1"
 else
-  find "$2" -name "$1"
+  sudo find "$2" -name "$1"
 fi
 
 
