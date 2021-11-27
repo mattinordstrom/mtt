@@ -15,11 +15,12 @@ scriptCategories = {'STRINGS': 'String handling',
                     'MISC': 'Misc'}
 
 class scriptInfo: 
-    def __init__(self, name, category, description, params): 
+    def __init__(self, name, category, description, params, isPython=False): 
         self.name = name
         self.category = category
         self.description = description
         self.params = params
+        self.isPython = isPython
 
 numberOfParams = len(sys.argv)-1
 if numberOfParams == 0:
@@ -37,6 +38,7 @@ scripts.append(scriptInfo('fromc', 'STRINGS', 'From clipboard. Outputs clipboard
 scripts.append(scriptInfo('replacecc', 'STRINGS', 'Replaces given string with a new string in clipboard content.', ['find', 'new_string']))
 scripts.append(scriptInfo('replaceccb', 'STRINGS', 'Replaces string between two strings in clipboard content. \nI.e <\"I have\"> <\"bananas\"> <\"99\">. I have 99 bananas', ['before', 'after', 'string']))
 scripts.append(scriptInfo('base64', 'STRINGS', 'Encode/decode a base64 string.', ['string']))
+scripts.append(scriptInfo('findjunk', 'STRINGS', 'Find junk signs in string.', ['string'], True))
 
 scripts.append(scriptInfo('portuse', 'STATS', 'Display which process is using a specific port.', ['port']))
 scripts.append(scriptInfo('topcpu', 'STATS', 'Displays top CPU usage.', []))
@@ -52,7 +54,7 @@ scripts.append(scriptInfo('find', 'MISC', 'Find file with name. (Default directo
 
 if scriptName in ['h', 'help', '-h', '-help', '--h', '--help']:
   print('\n')
-  print(BOLD + GREEN + '##### MTT - Mattis Terminal Toolkit #####\n' + ENDC)
+  print(BOLD + GREEN + '----- MTT - Mattis Terminal Toolkit -----\n' + ENDC)
   print(BOLD + 'USAGE:\n' + ENDC)
   #Loop through the categories
   for key, value in scriptCategories.items():
@@ -74,12 +76,17 @@ if scriptName in ['h', 'help', '-h', '-help', '--h', '--help']:
     print('\n')
 else:
   validScript=False
+  isPython=False
   for obj in scripts:
     if scriptName == obj.name:
         validScript=True
-  
+        if obj.isPython:
+          isPython=True
   if validScript == True:
-    subprocess.call([sys.path[0] + '/mtt_scripts/' + scriptName + ' ' + paramsAsString], shell=True)
+    if isPython:
+      subprocess.call(['python3 ' + sys.path[0] + '/mtt_scripts/' + scriptName + '.py ' + paramsAsString], shell=True)
+    else:
+      subprocess.call([sys.path[0] + '/mtt_scripts/' + scriptName + ' ' + paramsAsString], shell=True)
   else:
     print('Invalid arguments. Use mtt h to see available commands')
 
