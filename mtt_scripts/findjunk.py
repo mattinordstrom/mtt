@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import sys
+import sys, chardet
 
 RED = '\033[91m'
 YELLOW = '\033[93m'
@@ -12,6 +12,9 @@ if numberOfParams == 0:
   exit()
 
 string = sys.argv[1]
+encoding = chardet.detect(string.encode())['encoding']
+print("ENCODING:" + encoding)
+print(" ")
 outputString=""
 for char in string:
   charcode = ord(char)
@@ -27,4 +30,3 @@ for char in string:
 print(outputString)
 
 
-#TODO get multiline string from file with param -f
