@@ -3,9 +3,16 @@
 if [ $# -eq 0 ] || [ -z "$1" ]; then
   printf "No string specified. Usage: mtt base64 <string>"
 else
-  tput setaf 6; printf "ENCODED: "; tput sgr0; echo $1 | base64
-  tput setaf 6; printf "DECODED: "; tput sgr0; echo $1 | base64 --decode
+  tput setaf 6; printf "DECODED: \n"; tput sgr0;
+  IFS='.' read -r -a array <<< "$1"
+  for element in "${array[@]}"
+  do
+    echo $element | base64 --decode
+    echo ""
+  done
+  tput setaf 6; printf "ENCODED: \n"; tput sgr0;
+  echo $1 | base64
 fi
 
 # Example encode from clipboard
-# mtt base64 $(mtt fromc)
+# mtt base64 "$(mtt fromc)"
