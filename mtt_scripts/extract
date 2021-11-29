@@ -3,7 +3,9 @@
 fileName=$1
 outputDir="${fileName%.*}"
 
-if [ "${fileName:(-3)}" == "tar" ] || [ "${fileName:(-6)}" == "tar.gz" ] || [ "${fileName:(-6)}" == "tar.xz" ]; then
+if [ "${fileName:(-3)}" == "zip" ]; then
+    unzip "$fileName" -d "$outputDir"
+elif [ "${fileName:(-3)}" == "tar" ] || [ "${fileName:(-6)}" == "tar.gz" ] || [ "${fileName:(-6)}" == "tar.xz" ]; then
     tar -xf "$fileName" --one-top-level
 else
     7z x "$fileName" -o"$outputDir"
