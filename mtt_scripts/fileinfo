@@ -1,7 +1,7 @@
 #!/bin/bash
 
-tput setaf 2; head -n 5 $1; tput sgr0;
+tput setaf 2; head -n 5 "$1"; tput sgr0;
 
 printf "\n"
 
-exiftool $1
+exiftool "$1"
