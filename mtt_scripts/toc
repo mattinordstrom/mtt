@@ -11,3 +11,6 @@ fi
 
 # Example echo string to clipboard:
 # echo "test" | mtt toc
+
+# Example save current path to clipboard:
+# echo $(pwd) | mtt toc

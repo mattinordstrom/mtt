@@ -51,6 +51,8 @@ scripts.append(scriptInfo('localkafka', 'DEV_TOOLS', 'Starts local kafka server.
 scripts.append(scriptInfo('extract', 'MISC', 'Extract compressed file. (tar, 7z, zip...)', ['filepath']))
 scripts.append(scriptInfo('fileinfo', 'MISC', 'Get details about a file.', ['filepath']))
 scripts.append(scriptInfo('find', 'MISC', 'Find file with name. (Default directory is ~)', ['pattern', '?directory']))
+scripts.append(scriptInfo('shorts', 'MISC', 'List of keyboard shortcuts for different applications.', ['?application'], True))
+
 
 if scriptName in ['h', 'help', '-h', '-help', '--h', '--help']:
   print('\n')
