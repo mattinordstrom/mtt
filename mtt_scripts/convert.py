@@ -3,7 +3,7 @@
 # pip install pyperclip dicttoxml xmltodict
 
 import pyperclip, json, xmltodict, sys
-from xml.dom.minidom import parseString
+from defusedxml.minidom import parseString
 from dicttoxml import dicttoxml
 
 YELLOW = '\033[93m'
