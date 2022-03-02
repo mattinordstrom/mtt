@@ -19,6 +19,7 @@ if showAll or sys.argv[1] == 'intellij':
   print(' Show bookmarks:           ' + BOLD+'Shift + F11'+ENDC)
   print(' Next bookmark:            ' + BOLD+'Ctrl + Shift + Ä'+ENDC)
   print(' Previous bookmark:        ' + BOLD+'Ctrl + Shift + Ö'+ENDC)
+  print(' Find action...:           ' + BOLD+'Ctrl + Shift + A'+ENDC)
   print(' ')
 
 if showAll or sys.argv[1] == 'vscode':
