@@ -26,6 +26,7 @@ if showAll or sys.argv[1] == 'vscode':
   print(YELLOW+'::Visual Studio Code::'+ENDC)
   print(' Go to file:               ' + BOLD+'Ctrl + P'+ENDC)
   print(' Run command:              ' + BOLD+'Ctrl + Shift + P'+ENDC)
+  print(' Edit multiple rows:       ' + BOLD+'Shift + Alt + UpArrow/DownArrow'+ENDC)
   print(' ')
 
 if showAll or sys.argv[1] == 'dbeaver':
