@@ -1,4 +1,19 @@
 #!/bin/bash
 
+existingContainer=$(docker ps -a | grep -m 1 "johnnypark/kafka-zookeeper" | cut -c 1-12)
+
+#echo $existingContainer
+#if [ -z "$existingContainer" ]; then
+ #   docker run -p 2181:2181 -p 9092:9092 -e ADVERTISED_HOST=127.0.0.1 johnnypark/kafka-zookeeper
+#else
+ #   docker start $existingContainer
+#fi
+
+
+if [ ! -z "$existingContainer" ]; then
+    echo "Removing old container..."
+    docker rm $existingContainer
+fi
+
 docker run -p 2181:2181 -p 9092:9092 -e ADVERTISED_HOST=127.0.0.1 johnnypark/kafka-zookeeper
 
