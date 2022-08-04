@@ -7,6 +7,7 @@ fi
 
 whichRes=$(which $1)
 aptRes=$(apt list --installed 2>/dev/null | grep -i $1)
+snapRes=$(snap list | grep -i $1)
 
 printf "\n"
 
@@ -14,17 +15,16 @@ if [ -z "$whichRes" ]; then
   printf "WARNING \"$1\" is probably not the exact app name! \n\n"
 fi
 
-if [ -z "$aptRes" ]; then
-  snapRes=$(snap list | grep -i $1)
-  if [ -z "$snapRes" ]; then
+if [ -z "$snapRes" ]; then
+  if [ -z "$aptRes" ]; then
     printf "Application not installed with apt or snap."
   else
-    printf "::SNAP PACKAGE:: \n"
-    printf "$snapRes"
+    printf "::APT PACKAGE:: \n"
+    printf "$aptRes"
   fi
 else
-  printf "::APT PACKAGE:: \n"
-  printf "$aptRes"
+  printf "::SNAP PACKAGE:: \n"
+  printf "$snapRes"
 fi
 
 printf "\n\n"
