@@ -53,7 +53,7 @@ scripts.append(scriptInfo('extract', 'MISC', 'Extract compressed file. (tar, 7z,
 scripts.append(scriptInfo('fileinfo', 'MISC', 'Get details about a file.', ['filepath']))
 scripts.append(scriptInfo('find', 'MISC', 'Find file with name. (Default directory is ~)', ['pattern', '?directory']))
 scripts.append(scriptInfo('shorts', 'MISC', 'List of keyboard shortcuts for different applications.', ['?application'], True))
-
+scripts.append(scriptInfo('appinfo', 'MISC', 'App info. How and where it is installed.', ['appname']))
 
 if scriptName in ['h', 'help', '-h', '-help', '--h', '--help']:
   print('\n')
