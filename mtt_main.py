@@ -48,6 +48,7 @@ scripts.append(scriptInfo('versions', 'DEV_TOOLS', 'Prints java, PHP, node, npm 
 scripts.append(scriptInfo('timestamp', 'DEV_TOOLS', 'Converts timestamp (ms) or date string (\"yyyy-mm-dd hh:mm:ss\"). \nIf no arg is passed the current timestamp (now) is printed.', ['?string']))
 scripts.append(scriptInfo('localkafka', 'DEV_TOOLS', 'Starts local kafka server.', []))
 scripts.append(scriptInfo('convert', 'DEV_TOOLS', 'Converts xml/json from clipboard.', ['from_format', 'to_format'], True))
+scripts.append(scriptInfo('uuid', 'DEV_TOOLS', 'Generate random uuid v4.', []))
 
 scripts.append(scriptInfo('extract', 'MISC', 'Extract compressed file. (tar, 7z, zip...)', ['filepath']))
 scripts.append(scriptInfo('fileinfo', 'MISC', 'Get details about a file.', ['filepath']))
