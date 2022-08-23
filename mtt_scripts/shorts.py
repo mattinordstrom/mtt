@@ -49,4 +49,10 @@ if showAll or sys.argv[1] == 'nano':
   print(' Show line numbers:        ' + BOLD+'Alt + Shift + 3'+ENDC)
   print(' ')
 
+if showAll or sys.argv[1] == 'ubuntu':
+  print(YELLOW+'::Ubuntu::'+ENDC)
+  print(' Move win to other screen: ' + BOLD+'Super + Shift + LeftArraow/RightArrow'+ENDC)
+  print(' Maximize/minimize win:    ' + BOLD+'Super + UpArraow/DownArrow'+ENDC)
+  print(' ')
+
 print(' ')
