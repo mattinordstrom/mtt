@@ -1,0 +1,19 @@
+#!/bin/bash
+
+IN=$PATH
+arrIN=(${IN//:/ })
+mttPath="" 
+for i in "${arrIN[@]}"; do
+  if [[ $i == *"mtt"* ]]; then
+    mttPath="$i"
+  fi
+done
+
+if [ -z "$1" ]; then
+  printf $mttPath"\n"
+  printf "\n"
+  ls -la $mttPath"/mtt_scripts"
+  exit
+fi
+
+cat $mttPath"/mtt_scripts/"$1
