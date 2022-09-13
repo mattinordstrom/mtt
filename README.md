@@ -6,4 +6,4 @@ If not, add export PATH=$PATH:$HOME/bin to your .zshrc file.
   
 Run mtt h to see available commands.
 
-![Screenshot from 2022-09-08 15-11-04](https://user-images.githubusercontent.com/9746127/189130619-70a318ec-f64b-4ede-8127-bf62fd5c7199.png)
+![Screenshot from 2022-09-12 14-18-25](https://user-images.githubusercontent.com/9746127/189651603-e07ce4ac-9501-43d9-bf41-c988183774b0.png)
