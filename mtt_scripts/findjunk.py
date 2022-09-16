@@ -6,7 +6,7 @@ RED = '\033[91m'
 YELLOW = '\033[93m'
 ENDC = '\033[0m'
 
-emptyParam = sys.argv[1] == ""
+emptyParam = len(sys.argv) < 2
 if emptyParam:
   print('No string specified. Useage: mtt findjunk <string>')
   exit()

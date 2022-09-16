@@ -1,3 +1,16 @@
 #!/bin/bash
 
-python3 "$(dirname "$0")"/mtt_main.py "$@"
+if [ "$1" == "h" ] || [ "$1" == "help" ] || [ "$1" == "-h" ] || [ "$1" == "-help" ] || [ "$1" == "--h" ] || [ "$1" == "--help" ]; then
+    python3 "$(dirname "$0")/mtt_help.py"
+    exit
+fi
+
+FILE="$(dirname "$0")/mtt_scripts/"$1
+if test -f "$FILE"; then
+    "$FILE" "${@:2}"
+elif test -f "$FILE.py"; then
+    python3 "$FILE.py" "${@:2}"
+else
+    echo "Invalid. Use mtt h to see available commands"
+fi
+

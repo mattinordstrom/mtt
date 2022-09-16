@@ -6,7 +6,7 @@ BOLD = '\033[1m'
 YELLOW = '\033[93m'
 ENDC = '\033[0m'
 
-showAll = sys.argv[1] == ""
+showAll = len(sys.argv) < 2
 
 print(' ')
 

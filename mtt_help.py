@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import sys, subprocess
+import sys
 
 NUM_CHARS_BEFORE_DESCR = 47
 
@@ -9,28 +9,18 @@ YELLOW = '\033[93m'
 BOLD = '\033[1m'
 ENDC = '\033[0m'
 
-scriptCategories = {'STRINGS': 'String handling', 
-                    'STATS': 'Stats', 
+scriptCategories = {'STRINGS': 'String handling',
+                    'STATS': 'Stats',
                     'DEV_TOOLS': 'Dev tools',
                     'MISC': 'Misc'}
 
 class scriptInfo: 
-    def __init__(self, name, category, description, params, isPython=False): 
+    def __init__(self, name, category, description, params, isPython=False):
         self.name = name
         self.category = category
         self.description = description
         self.params = params
         self.isPython = isPython
-
-numberOfParams = len(sys.argv)-1
-if numberOfParams == 0:
-    print('No arguments. Use mtt h to see available commands')
-    exit()
-
-scriptName = sys.argv[1]
-paramsAsString = '"' + '" "'.join(sys.argv[2:]) + '"'
-#print('Params as string: ' + paramsAsString)
-#param1 = sys.argv[2]
 
 scripts = [] 
 scripts.append(scriptInfo('toc', 'STRINGS', 'To clipboard. Read file content or echo into clipboard.', ['?filepath']))
@@ -58,42 +48,25 @@ scripts.append(scriptInfo('shorts', 'MISC', 'List of keyboard shortcuts for diff
 scripts.append(scriptInfo('howto', 'MISC', 'Mixed howtos.', ['?application'], True))
 scripts.append(scriptInfo('appinfo', 'MISC', 'App info. How and where it is installed.', ['appname']))
 
-if scriptName in ['h', 'help', '-h', '-help', '--h', '--help']:
-  print('\n')
-  print(BOLD + GREEN + '----- MTT - Mattis Terminal Toolkit -----\n' + ENDC)
-  print(BOLD + 'USAGE:\n' + ENDC)
-  #Loop through the categories
-  for key, value in scriptCategories.items():
-    print(YELLOW + value + ENDC)
-    #For each category loop through the scripts to find matching
-    for script in scripts:
-      if key == script.category:
-        paramsString=''
-        #Loop the parameters for current script
-        for param in script.params:
-          paramsString += '<' + param + '> '
-
-        stringLength = 6 + len(script.name) + 1 + len(paramsString)
-        numWhitespaces = NUM_CHARS_BEFORE_DESCR - stringLength
-        whitespace = ' '
-        description = script.description
-        description = description.replace('\n', '\n'+((NUM_CHARS_BEFORE_DESCR+1)*whitespace))
-        print('  mtt ' + script.name + ' ' + paramsString + (numWhitespaces*whitespace) + description)
-    print('\n')
-else:
-  validScript=False
-  isPython=False
-  for obj in scripts:
-    if scriptName == obj.name:
-        validScript=True
-        if obj.isPython:
-          isPython=True
-  if validScript == True:
-    if isPython:
-      subprocess.call(['python3 ' + sys.path[0] + '/mtt_scripts/' + scriptName + '.py ' + paramsAsString], shell=True)
-    else:
-      subprocess.call([sys.path[0] + '/mtt_scripts/' + scriptName + ' ' + paramsAsString], shell=True)
-  else:
-    print('Invalid arguments. Use mtt h to see available commands')
 
 print('\n')
+print(BOLD + GREEN + '----- MTT - Mattis Terminal Toolkit -----\n' + ENDC)
+print(BOLD + 'USAGE:\n' + ENDC)
+#Loop through the categories
+for key, value in scriptCategories.items():
+  print(YELLOW + value + ENDC)
+  #For each category loop through the scripts to find matching
+  for script in scripts:
+    if key == script.category:
+      paramsString=''
+      #Loop the parameters for current script
+      for param in script.params:
+        paramsString += '<' + param + '> '
+
+      stringLength = 6 + len(script.name) + 1 + len(paramsString)
+      numWhitespaces = NUM_CHARS_BEFORE_DESCR - stringLength
+      whitespace = ' '
+      description = script.description
+      description = description.replace('\n', '\n'+((NUM_CHARS_BEFORE_DESCR+1)*whitespace))
+      print('  mtt ' + script.name + ' ' + paramsString + (numWhitespaces*whitespace) + description)
+  print('\n')
