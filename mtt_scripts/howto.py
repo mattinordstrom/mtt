@@ -32,4 +32,10 @@ if showAll or sys.argv[1] == 'grep':
   print( BOLD+" fgrep -wx -v -f listOfIds3.csv idsThatExistsInBothLists.csv >finalresult.csv "+ENDC)
   print(' ')
 
+if showAll or sys.argv[1] == 'watch':
+  print(YELLOW+'::WATCH::'+ENDC)
+  print(" Print last lines of file out.txt every 3 seconds:")
+  print( BOLD+" watch -n 3 tail out.txt "+ENDC)
+  print(' ')
+
 print(' ')
