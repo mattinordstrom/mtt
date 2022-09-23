@@ -51,8 +51,14 @@ if showAll or sys.argv[1] == 'nano':
 
 if showAll or sys.argv[1] == 'ubuntu':
   print(YELLOW+'::Ubuntu::'+ENDC)
-  print(' Move win to other screen: ' + BOLD+'Super + Shift + LeftArraow/RightArrow'+ENDC)
-  print(' Maximize/minimize win:    ' + BOLD+'Super + UpArraow/DownArrow'+ENDC)
+  print(' Move win to other screen: ' + BOLD+'Super + Shift + LeftArrow/RightArrow'+ENDC)
+  print(' Maximize/minimize win:    ' + BOLD+'Super + UpArrow/DownArrow'+ENDC)
+  print(' ')
+
+if showAll or sys.argv[1] == 'terminator':
+  print(YELLOW+'::Terminator::'+ENDC)
+  print(' Switch tabs:  ' + BOLD+'Ctrl + PageUp/PageDown'+ENDC)
+  print(' Focus win:    ' + BOLD+'Alt + Arrow key'+ENDC)
   print(' ')
 
 print(' ')
