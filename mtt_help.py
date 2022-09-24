@@ -10,7 +10,7 @@ BOLD = '\033[1m'
 ENDC = '\033[0m'
 
 scriptCategories = {'STRINGS': 'String handling',
-                    'STATS': 'Stats',
+                    'SYSTEM': 'System',
                     'DEV_TOOLS': 'Dev tools',
                     'MISC': 'Misc'}
 
@@ -30,9 +30,11 @@ scripts.append(scriptInfo('replaceccb', 'STRINGS', 'Replaces string between two 
 scripts.append(scriptInfo('base64', 'STRINGS', 'Encode/decode a base64 string.', ['string']))
 scripts.append(scriptInfo('findjunk', 'STRINGS', 'Find junk signs in string.', ['string'], True))
 
-scripts.append(scriptInfo('portuse', 'STATS', 'Display which process is using a specific port.', ['port']))
-scripts.append(scriptInfo('topcpu', 'STATS', 'Displays top CPU usage.', []))
-scripts.append(scriptInfo('topmem', 'STATS', 'Displays top MEM usage.', []))
+scripts.append(scriptInfo('portuse', 'SYSTEM', 'Display which process is using a specific port.', ['port']))
+scripts.append(scriptInfo('topcpu', 'SYSTEM', 'Displays top CPU usage.', []))
+scripts.append(scriptInfo('topmem', 'SYSTEM', 'Displays top MEM usage.', []))
+scripts.append(scriptInfo('fileinfo', 'SYSTEM', 'Get details about a file.', ['filepath']))
+scripts.append(scriptInfo('appinfo', 'SYSTEM', 'App info. How and where it is installed.', ['appname']))
 
 scripts.append(scriptInfo('versions', 'DEV_TOOLS', 'Prints java, PHP, node, npm version info.', []))
 scripts.append(scriptInfo('timestamp', 'DEV_TOOLS', 'Converts timestamp (ms) or date string (\"yyyy-mm-dd hh:mm:ss\"). \nIf no arg is passed the current timestamp (now) is printed.', ['?string']))
@@ -42,11 +44,9 @@ scripts.append(scriptInfo('uuid', 'DEV_TOOLS', 'Generate random uuid v4.', []))
 
 scripts.append(scriptInfo('cat', 'MISC', 'List mtt scripts dir. Or outputs a scripts content.', ['?scriptname']))
 scripts.append(scriptInfo('extract', 'MISC', 'Extract compressed file. (tar, 7z, zip...)', ['filepath']))
-scripts.append(scriptInfo('fileinfo', 'MISC', 'Get details about a file.', ['filepath']))
 scripts.append(scriptInfo('find', 'MISC', 'Find file with name. (Default directory is ~)', ['pattern', '?directory']))
 scripts.append(scriptInfo('shorts', 'MISC', 'List of keyboard shortcuts for different applications.', ['?application'], True))
 scripts.append(scriptInfo('howto', 'MISC', 'Mixed howtos.', ['?application'], True))
-scripts.append(scriptInfo('appinfo', 'MISC', 'App info. How and where it is installed.', ['appname']))
 scripts.append(scriptInfo('week', 'MISC', 'Output current week info. Date, day, week number etc.', []))
 
 
