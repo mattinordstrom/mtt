@@ -12,25 +12,46 @@ tput bold; tput setaf 6; echo "   "$currentDayName, $(date +%d) $(date +%B) $(da
 currentWeek=$(date +%V)
 tput setaf 6; echo "   Current week: $currentWeek"; tput sgr0;
 
+
+# LAST WEEK
 echo " "
-echo " "
+tput setaf 7;
 weekOutput=''
 for i in ${!weekDaysArray[@]}; do
   dayOneIdx="$(($i + 1))"
+  currDay=${weekDaysArray[$i]}
   
   if [ "$dayOneIdx" -ge "$currentDayIdx" ]; then
-    if [ "$dayOneIdx" -eq "$currentDayIdx" ]; then
-      weekOutput=$weekOutput"->|"${weekDaysArray[$i]}"|"$(date -d-${weekDaysArray[$i]} +%Y-%m-%d)"\n"
-    else
-      weekOutput=$weekOutput"|"${weekDaysArray[$i]}"|"$(date -d-${weekDaysArray[$i]} +%Y-%m-%d)"\n"
-    fi
+    weekOutput=$weekOutput"  |"$currDay"|"$(date -d''"$currDay"'-1 week' +%Y-%m-%d)"\n"
   else
-    weekOutput=$weekOutput"|"${weekDaysArray[$i]}"|"$(date -dlast-${weekDaysArray[$i]} +%Y-%m-%d)"\n"
+    weekOutput=$weekOutput"  |"$currDay"|"$(date -d''"$currDay"'-2 weeks' +%Y-%m-%d)"\n"
   fi
 done
-
 weekOutput=$(echo -e $weekOutput) #interpret slash n as newline
 column -t -s "|" <<< $weekOutput #print week in column format
+echo "   --"
+tput sgr0;
+
+
+# THIS WEEK
+weekOutput=''
+for i in ${!weekDaysArray[@]}; do
+  dayOneIdx="$(($i + 1))"
+  currDay=${weekDaysArray[$i]}
+
+  if [ "$dayOneIdx" -ge "$currentDayIdx" ]; then
+    if [ "$dayOneIdx" -eq "$currentDayIdx" ]; then
+      weekOutput=$weekOutput"  |"$currDay"|"$(date -d-$currDay +%Y-%m-%d)"|<-\n"
+    else
+      weekOutput=$weekOutput"  |"$currDay"|"$(date -d-$currDay +%Y-%m-%d)"\n"
+    fi
+  else
+    weekOutput=$weekOutput"  |"$currDay"|"$(date -dlast-$currDay +%Y-%m-%d)"\n"
+  fi
+done
+weekOutput=$(echo -e $weekOutput) #interpret slash n as newline
+column -t -s "|" <<< $weekOutput #print week in column format
+
 
 echo " "
 tput setaf 3; echo "-------------------------------------------------------"; tput sgr0;
