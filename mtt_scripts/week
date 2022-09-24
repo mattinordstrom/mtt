@@ -1,0 +1,34 @@
+#!/bin/bash
+
+weekDaysArray=( "Monday" "Tuesday" "Wednesday" "Thursday" "Friday" "Saturday" "Sunday" )
+currentDayIdx=$(date +%u)
+currentDayName=${weekDaysArray[$currentDayIdx-1]}
+
+echo " "
+tput setaf 3; echo "-------------------------------------------------------"; tput sgr0;
+tput bold; tput setaf 6; echo "   "$currentDayName, $(date +%d) $(date +%B) $(date +'%Y (%H:%M:%S)'); tput sgr0; tput sgr0;
+
+currentWeek=$(date +%V)
+tput setaf 6; echo "   Current week: $currentWeek"; tput sgr0;
+
+echo " "
+echo " "
+for i in ${!weekDaysArray[@]}; do
+  dayOneIdx="$(($i + 1))"
+  #dayName=${${weekDaysArray[$i]}}
+  
+  if [ "$dayOneIdx" -ge "$currentDayIdx" ]; then
+    if [ "$dayOneIdx" -eq "$currentDayIdx" ]; then
+      echo "-> "${weekDaysArray[$i]} $(date -d-${weekDaysArray[$i]} +%Y-%m-%d)
+    else
+      echo "   "${weekDaysArray[$i]} $(date -d-${weekDaysArray[$i]} +%Y-%m-%d)
+    fi
+  else
+    echo "   "${weekDaysArray[$i]} $(date -dlast-${weekDaysArray[$i]} +%Y-%m-%d)
+  fi
+done
+echo " "
+
+echo " "
+tput setaf 3; echo "-------------------------------------------------------"; tput sgr0;
+echo " "

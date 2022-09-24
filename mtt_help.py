@@ -47,6 +47,7 @@ scripts.append(scriptInfo('find', 'MISC', 'Find file with name. (Default directo
 scripts.append(scriptInfo('shorts', 'MISC', 'List of keyboard shortcuts for different applications.', ['?application'], True))
 scripts.append(scriptInfo('howto', 'MISC', 'Mixed howtos.', ['?application'], True))
 scripts.append(scriptInfo('appinfo', 'MISC', 'App info. How and where it is installed.', ['appname']))
+scripts.append(scriptInfo('week', 'MISC', 'Output current week info. Date, day, week number etc.', []))
 
 
 print('\n')
