@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# USAGE: 
+# mtt calc "17*4" 8
+# mtt calc <equation> <?numDecimals>
+
+if [ $# -eq 0 ] || [ -z "$1" ]; then
+  printf "No args specified. Usage: mtt calc <equation> <?numDecimals>"
+  exit
+fi
+
+numDecimals=$2
+if [ -z "$2" ]; then
+  numDecimals=6
+fi
+
+echo "scale = $numDecimals; "$1"" | bc

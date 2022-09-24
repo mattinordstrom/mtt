@@ -16,4 +16,6 @@ if [ -z "$1" ]; then
   exit
 fi
 
-cat $mttPath"/mtt_scripts/"$1
+echo " "
+tput setaf 7; cat $mttPath"/mtt_scripts/"$1; tput sgr0;
+echo " "
