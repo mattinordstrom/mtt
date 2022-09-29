@@ -38,4 +38,13 @@ if showAll or sys.argv[1] == 'watch':
   print( BOLD+" watch -n 3 tail out.txt "+ENDC)
   print(' ')
 
+if showAll or sys.argv[1] == 'git':
+  print(YELLOW+'::GIT::'+ENDC)
+  print(" Show stash list:")
+  print( BOLD+" git stash list | head "+ENDC)
+  print(' ')
+  print(" Show changed files in a stash:")
+  print( BOLD+" git stash show 2 | cat "+ENDC)
+  print(' ')
+
 print(' ')
