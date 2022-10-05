@@ -10,8 +10,22 @@ showAll = len(sys.argv) < 2
 
 print(' ')
 
-if showAll or sys.argv[1] == 'regex':
+if showAll:
+  print(YELLOW+'Use one of the following args:'+ENDC)
+  print(' ')
+  print('  regex')
+  print(' ')
+  print('  grep')
+  print(' ')
+  print('  watch')
+  print(' ')
+  print('  git')
+  print(' ')
+  exit()
+
+if sys.argv[1] == 'regex':
   print(YELLOW+'________REGEX________'+ENDC)
+  print(' ')
   print(" Find all bananas and print 3 chars before and 9 chars after:")
   print( BOLD+" mtt fromc | grep -o -P '.{0,3}banana.{0,9}' "+ENDC)
   print(' ')
@@ -22,32 +36,42 @@ if showAll or sys.argv[1] == 'regex':
   print( BOLD+' Search title attr in html: title="(.*)"(\/>*) '+ENDC)
   print( BOLD+' Replace with title tag: $2<title>$1</title> '+ENDC)
   print(' ')
-  print(' ')
+  exit()
 
-if showAll or sys.argv[1] == 'grep':
+if sys.argv[1] == 'grep':
   print(YELLOW+'________GREP________'+ENDC)
+  print(' ')
   print(" List all ids that exists in both csv:")
   print( BOLD+" fgrep -wx -f listOfIds1.csv listOfIds2.csv >idsThatExistsInBothLists.csv "+ENDC)
   print(' ')
   print(" Remove ids from idsThatExistsInBothLists that are present in listOfIds3:")
   print( BOLD+" fgrep -wx -v -f listOfIds3.csv idsThatExistsInBothLists.csv >finalresult.csv "+ENDC)
   print(' ')
-  print(' ')
+  exit()
 
-if showAll or sys.argv[1] == 'watch':
+if sys.argv[1] == 'watch':
   print(YELLOW+'________WATCH________'+ENDC)
+  print(' ')
   print(" Print last lines of file out.txt every 3 seconds:")
   print( BOLD+" watch -n 3 tail out.txt "+ENDC)
   print(' ')
-  print(' ')
+  exit()
 
-if showAll or sys.argv[1] == 'git':
+if sys.argv[1] == 'git':
   print(YELLOW+'________GIT________'+ENDC)
+  print(' ')
   print(" Show stash list:")
   print( BOLD+" git stash list | head "+ENDC)
   print(' ')
   print(" Show changed files in a stash:")
   print( BOLD+" git stash show 2 | cat "+ENDC)
+  print(' ')
+  print('------------------------')
+  print(' ')
+  print(" Show log of current branch commits:")
+  print( BOLD+" git log --pretty=oneline --since=\"3 years ago\" | grep PROJECT-1234"+ENDC)
+  print(' ')
+  print('------------------------')
   print(' ')
   print(" List all branches that would be pruned:")
   print( BOLD+" git remote prune origin --dry-run"+ENDC)
@@ -61,5 +85,4 @@ if showAll or sys.argv[1] == 'git':
   print(" Remove the local branches:")
   print( BOLD+" git br --merged develop | grep -E 'conflict/|bugfix/|feature/' | xargs -I {} git br -d {}"+ENDC)
   print(' ')
-
-print(' ')
+  #exit()
