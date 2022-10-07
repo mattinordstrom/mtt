@@ -97,5 +97,6 @@ if sys.argv[1] == 'git':
   print(' ')
   print(" Changes from other branch without commiting:")
   print( BOLD+" git merge feature/PROJECT-1234 --no-commit"+ENDC)
+  print( BOLD+" git reset HEAD~1"+ENDC)
   print(' ')
   #exit()
