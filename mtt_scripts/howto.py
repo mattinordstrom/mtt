@@ -21,6 +21,10 @@ if showAll:
   print(' ')
   print('  sort')
   print(' ')
+  print('  sed')
+  print(' ')
+  print('  xargs')
+  print(' ')
   print('  git')
   print(' ')
   exit()
@@ -64,6 +68,25 @@ if sys.argv[1] == 'sort':
   print(' ')
   print(" Find duplicates:")
   print( BOLD+" mtt fromc | sort | uniq -cd"+ENDC)
+  print(' ')
+  exit()
+
+if sys.argv[1] == 'sed':
+  print(YELLOW+'________SED________'+ENDC)
+  print(' ')
+  print(" Replace apples with bananas in file:")
+  print( BOLD+" sed -i 's/apple/banana/g' ~/Desktop/fruits.txt"+ENDC)
+  print(' ')
+  exit()
+
+if sys.argv[1] == 'xargs':
+  print(YELLOW+'________XARGS________'+ENDC)
+  print(' ')
+  print(" Create two text files:")
+  print( BOLD+' printf "1\\n2\\n" | xargs -i touch {}.txt'+ENDC)
+  print(' ')
+  print(" Search each word in list and output occurences for each in file:")
+  print( BOLD+' mtt fromc | xargs -I {} sh -c "grep -i {} file_with_many_rows.csv | wc -l"'+ENDC)
   print(' ')
   exit()
 
