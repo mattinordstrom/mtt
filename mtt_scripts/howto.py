@@ -6,11 +6,13 @@ BOLD = '\033[1m'
 YELLOW = '\033[93m'
 ENDC = '\033[0m'
 
-showAll = len(sys.argv) < 2
+showMenu = len(sys.argv) < 2
 
 print(' ')
 
-if showAll:
+if showMenu:
+  print(BOLD+'Show all: mtt howto --showall'+ENDC)
+  print(' ')
   print(YELLOW+'Use one of the following args:'+ENDC)
   print(' ')
   print('  regex')
@@ -27,9 +29,13 @@ if showAll:
   print(' ')
   print('  git')
   print(' ')
+  print('  misc')
+  print(' ')
   exit()
 
-if sys.argv[1] == 'regex':
+showAll = (sys.argv[1] == '--showall')
+
+if showAll or sys.argv[1] == 'regex':
   print(YELLOW+'________REGEX________'+ENDC)
   print(' ')
   print(" Find all bananas and print 3 chars before and 9 chars after:")
@@ -42,9 +48,8 @@ if sys.argv[1] == 'regex':
   print( BOLD+' Search title attr in html: title="(.*)"(\/>*) '+ENDC)
   print( BOLD+' Replace with title tag: $2<title>$1</title> '+ENDC)
   print(' ')
-  exit()
 
-if sys.argv[1] == 'grep':
+if showAll or sys.argv[1] == 'grep':
   print(YELLOW+'________GREP________'+ENDC)
   print(' ')
   print(" List all ids that exists in both csv:")
@@ -53,33 +58,29 @@ if sys.argv[1] == 'grep':
   print(" Remove ids from idsThatExistsInBothLists that are present in listOfIds3:")
   print( BOLD+" fgrep -wx -v -f listOfIds3.csv idsThatExistsInBothLists.csv >finalresult.csv "+ENDC)
   print(' ')
-  exit()
 
-if sys.argv[1] == 'watch':
+if showAll or sys.argv[1] == 'watch':
   print(YELLOW+'________WATCH________'+ENDC)
   print(' ')
   print(" Print last lines of file out.txt every 3 seconds:")
   print( BOLD+" watch -n 3 tail out.txt "+ENDC)
   print(' ')
-  exit()
 
-if sys.argv[1] == 'sort':
+if showAll or sys.argv[1] == 'sort':
   print(YELLOW+'________SORT________'+ENDC)
   print(' ')
   print(" Find duplicates:")
   print( BOLD+" mtt fromc | sort | uniq -cd"+ENDC)
   print(' ')
-  exit()
 
-if sys.argv[1] == 'sed':
+if showAll or sys.argv[1] == 'sed':
   print(YELLOW+'________SED________'+ENDC)
   print(' ')
   print(" Replace apples with bananas in file:")
   print( BOLD+" sed -i 's/apple/banana/g' ~/Desktop/fruits.txt"+ENDC)
   print(' ')
-  exit()
 
-if sys.argv[1] == 'xargs':
+if showAll or sys.argv[1] == 'xargs':
   print(YELLOW+'________XARGS________'+ENDC)
   print(' ')
   print(" Create two text files:")
@@ -88,9 +89,8 @@ if sys.argv[1] == 'xargs':
   print(" Search each word in list and output occurences for each in file:")
   print( BOLD+' mtt fromc | xargs -I {} sh -c "grep -i {} file_with_many_rows.csv | wc -l"'+ENDC)
   print(' ')
-  exit()
 
-if sys.argv[1] == 'git':
+if showAll or sys.argv[1] == 'git':
   print(YELLOW+'________GIT________'+ENDC)
   print(' ')
   print(" Show stash list:")
@@ -122,4 +122,10 @@ if sys.argv[1] == 'git':
   print( BOLD+" git merge feature/PROJECT-1234 --no-commit"+ENDC)
   print( BOLD+" git reset HEAD~1"+ENDC)
   print(' ')
-  #exit()
+
+if showAll or sys.argv[1] == 'misc':
+  print(YELLOW+'________MISC________'+ENDC)
+  print(' ')
+  print(" Print terminal output to file:")
+  print( BOLD+' npm run dev 2>&1 | tee ~/Desktop/npm_run_output.txt'+ENDC)
+  print(' ')
