@@ -119,8 +119,8 @@ if showAll or sys.argv[1] == 'git':
   print( BOLD+" git log --pretty=oneline --since=\"3 years ago\" | grep PROJECT-1234"+ENDC)
   print(' ')
   print(" Changes from other branch without commiting:")
-  print( BOLD+" git merge feature/PROJECT-1234 --no-commit"+ENDC)
-  print( BOLD+" git reset HEAD~1"+ENDC)
+  print( BOLD+" git log --no-merges $(git merge-base master feature/PROJECT-1234)..feature/PROJECT-1234 | grep -aoP 'commit \K(.*)' | tr '\\n' ' '"+ENDC)
+  print( BOLD+" git cherry-pick --no-commit <commit1> <commit2> <...>"+ENDC)
   print(' ')
 
 if showAll or sys.argv[1] == 'misc':
