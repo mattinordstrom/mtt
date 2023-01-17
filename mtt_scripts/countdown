@@ -1,0 +1,12 @@
+#!/bin/bash
+
+seconds=$1*60
+
+start="$(( $(date '+%s') + $seconds))"
+while [ $start -ge $(date +%s) ]; do
+    time="$(( $start - $(date +%s) ))"
+    printf '%s\r' "$(date -u -d "@$time" +%H:%M:%S)"
+    sleep 0.1
+done
+
+printf '################ DONE! ################'

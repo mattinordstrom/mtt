@@ -49,6 +49,7 @@ scripts.append(scriptInfo('shorts', 'MISC', 'List of keyboard shortcuts for diff
 scripts.append(scriptInfo('howto', 'MISC', 'Mixed howtos.', ['?application'], True))
 scripts.append(scriptInfo('week', 'MISC', 'Output current week info. Date, day, week number etc.', []))
 scripts.append(scriptInfo('calc', 'MISC', 'Calculator.', ['equation', '?numDecimals']))
+scripts.append(scriptInfo('countdown', 'MISC', 'Countdown.', ['minutes']))
 
 
 print('\n')
