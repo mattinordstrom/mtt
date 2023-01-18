@@ -5,7 +5,10 @@ screenblankdelay=$(echo $screenblankdelay | sed 's/uint32 //')
 echo "Initial screen blank delay: $screenblankdelay"
 echo " "
 
-#gsettings set org.gnome.desktop.session idle-delay 3600
+echo "!!! Setting screen blank delay temporarily to 3600 !!!"
+echo "gsettings set org.gnome.desktop.session idle-delay 3600"
+echo " "
+gsettings set org.gnome.desktop.session idle-delay 3600
 
 seconds="$(echo "$1 * 60" | bc -l)"
 seconds=$(LC_ALL=C printf '%.0f' "$seconds") #float to int
@@ -17,8 +20,9 @@ while [ $start -ge $(date +%s) ]; do
     sleep 0.1
 done
 
-printf "(Setting screen blank delay to $screenblankdelay)"
+echo "Setting screen blank delay back to $screenblankdelay"
+echo "gsettings set org.gnome.desktop.session idle-delay $screenblankdelay"
 gsettings set org.gnome.desktop.session idle-delay $screenblankdelay
 
 echo " "
-printf '################ DONE! ################'
+echo '################ DONE! ################'
