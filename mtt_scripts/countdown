@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# gsettings set org.gnome.desktop.session idle-delay 3600
+
 seconds=$1*60
 
 start="$(( $(date '+%s') + $seconds))"
@@ -10,3 +12,5 @@ while [ $start -ge $(date +%s) ]; do
 done
 
 printf '################ DONE! ################'
+
+# gsettings set org.gnome.desktop.session idle-delay 240
