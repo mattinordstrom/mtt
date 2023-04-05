@@ -11,10 +11,15 @@ ENDC = '\033[0m'
 
 fromFormat = sys.argv[1]
 toFormat = sys.argv[2]
+outputMode = ""
+if len(sys.argv) > 3:
+  outputMode = sys.argv[3]
+
 input = pyperclip.paste()
 
-print(YELLOW+"Input: "+ENDC, input[0:50]+"...")
-print(" ")
+if outputMode != 'silent':
+  print(YELLOW+"Input: "+ENDC, input[0:50]+"...")
+  print(" ")
 
 if toFormat == 'xml':
   if fromFormat == 'json':
@@ -26,7 +31,8 @@ if toFormat == 'xml':
     dom = parseString(input)
     pyperclip.copy(dom.toprettyxml())
 
-  print(YELLOW+"Output"+ENDC+" XML has been copied to the clipboard!")
+  if outputMode != 'silent':
+    print(YELLOW+"Output"+ENDC+" XML has been copied to the clipboard!")
 elif toFormat == 'json':
   if fromFormat == 'json':
     output = json.loads(input)
@@ -35,4 +41,5 @@ elif toFormat == 'json':
     output = xmltodict.parse(input)
     pyperclip.copy(json.dumps(output, indent=2))
 
-  print(YELLOW+"Output"+ENDC+" JSON has been copied to the clipboard!")
+  if outputMode != 'silent':
+    print(YELLOW+"Output"+ENDC+" JSON has been copied to the clipboard!")
