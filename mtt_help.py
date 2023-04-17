@@ -44,7 +44,6 @@ scripts.append(scriptInfo('uuid', 'DEV_TOOLS', 'Generate random uuid v4.', []))
 
 scripts.append(scriptInfo('cat', 'MISC', 'List mtt scripts dir. Or outputs a scripts content.', ['?scriptname']))
 scripts.append(scriptInfo('extract', 'MISC', 'Extract compressed file. (tar, 7z, zip...)', ['filepath']))
-scripts.append(scriptInfo('find', 'MISC', 'Find file with name. (Default directory is ~)', ['pattern', '?directory']))
 scripts.append(scriptInfo('shorts', 'MISC', 'List of keyboard shortcuts for different applications.', ['?application'], True))
 scripts.append(scriptInfo('howto', 'MISC', 'Mixed howtos.', ['?application'], True))
 scripts.append(scriptInfo('week', 'MISC', 'Output current week info. Date, day, week number etc.', []))
