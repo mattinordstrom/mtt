@@ -64,6 +64,7 @@ if showAll or sys.argv[1] == 'terminator':
   print(YELLOW+'________Terminator________'+ENDC)
   print(' Switch tabs:  ' + BOLD+'Ctrl + PageUp/PageDown'+ENDC)
   print(' Focus win:    ' + BOLD+'Alt + Arrow key'+ENDC)
+  print(' New win:      ' + BOLD+'Ctrl + Shift + I'+ENDC)
   print(' ')
 
 print(' ')
