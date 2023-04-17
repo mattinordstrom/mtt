@@ -20,5 +20,5 @@ Install:
   
 
 Run **$ mtt h** to see available commands.
-![Screenshot from 2022-09-24 14-36-46](https://user-images.githubusercontent.com/9746127/192098375-51848f9b-e30c-4b21-bde5-4ff041701096.png)
+
 
