@@ -41,6 +41,7 @@ scripts.append(scriptInfo('timestamp', 'DEV_TOOLS', 'Converts timestamp (ms) or 
 scripts.append(scriptInfo('localkafka', 'DEV_TOOLS', 'Starts local kafka server.', []))
 scripts.append(scriptInfo('convert', 'DEV_TOOLS', 'Converts xml/json from clipboard.', ['from_format', 'to_format'], True))
 scripts.append(scriptInfo('uuid', 'DEV_TOOLS', 'Generate random uuid v4.', []))
+scripts.append(scriptInfo('pyscratch', 'DEV_TOOLS', 'Creates python scratch file in ~/Desktop/py_scratches', [], True))
 
 scripts.append(scriptInfo('cat', 'MISC', 'List mtt scripts dir. Or outputs a scripts content.', ['?scriptname']))
 scripts.append(scriptInfo('extract', 'MISC', 'Extract compressed file. (tar, 7z, zip...)', ['filepath']))
