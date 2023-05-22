@@ -20,6 +20,7 @@ if showAll or sys.argv[1] == 'intellij':
   print(' Next bookmark:            ' + BOLD+'Ctrl + Shift + Ä'+ENDC)
   print(' Previous bookmark:        ' + BOLD+'Ctrl + Shift + Ö'+ENDC)
   print(' Find action...:           ' + BOLD+'Ctrl + Shift + A'+ENDC)
+  print(' Comment lines:            ' + BOLD+'Ctrl + /'+ENDC)
   print(' ')
   print(' ')
 
