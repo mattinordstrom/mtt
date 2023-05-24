@@ -19,6 +19,7 @@ print(a.replace("H", "J"))
 #### IF STATEMENT
 a = 200
 b = 33
+c = 100
 if b > a:
   print("b is greater than a")
 elif a == b or b < c:
