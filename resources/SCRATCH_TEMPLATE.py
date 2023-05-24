@@ -21,10 +21,10 @@ a = 200
 b = 33
 if b > a:
   print("b is greater than a")
-elif a == b:
-  print("a and b are equal")
+elif a == b or b < c:
+  print("a and b are equal or c is larger than b")
 else:
-  print("b is not greater than a")
+  print("b is not greater than a and so on...")
 
 
 ################
