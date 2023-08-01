@@ -11,7 +11,7 @@ else
     echo ""
   done
   tput setaf 6; printf "ENCODED: \n"; tput sgr0;
-  echo "$1" | base64
+  echo -n "$1" | base64
 fi
 
 # Example encode from clipboard
