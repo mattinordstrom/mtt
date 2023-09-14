@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# TODO only decode parts with delimiter . when jwt
+# TODO Replace - with + AND _ with / if Base64Url
+
 if [ $# -eq 0 ] || [ -z "$1" ]; then
   printf "No string specified. Usage: mtt base64 <string>"
 else
@@ -7,12 +10,15 @@ else
   IFS='.' read -r -a array <<< "$1"
   for element in "${array[@]}"
   do
-    echo "$element" | base64 --decode
-    echo ""
+    echo -n "$element" | base64 --decode -w 0
+    echo " "
+    echo " "
   done
   tput setaf 6; printf "ENCODED: \n"; tput sgr0;
-  echo -n "$1" | base64
+  echo -n "$1" | base64 -w 0
 fi
+
+echo " "
 
 # Example encode from clipboard
 # mtt base64 "$(mtt fromc)"
