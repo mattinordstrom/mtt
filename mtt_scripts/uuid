@@ -4,5 +4,5 @@ result=$(uuidgen)
 echo " ";
 echo $result;
 
-echo $result | mtt toc
+echo -n $result | mtt toc
 tput setaf 6; echo "Copied to clipboard!"; tput sgr0;
