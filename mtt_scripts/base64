@@ -14,6 +14,14 @@ else
   IFS='.' read -r -a array <<< "$input"
   for element in "${array[@]}"
   do
+    # Fix padding
+    len=$((${#element} % 4))
+    if [ $len -eq 2 ]; then
+      element="$element=="
+    elif [ $len -eq 3 ]; then
+      element="$element="
+    fi
+
     echo -n "$element" | base64 --decode -w 0
     echo " "
     echo " "
