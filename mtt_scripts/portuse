@@ -3,7 +3,7 @@
 if [ $# -eq 0 ] || [ -z "$1" ]; then
   printf "No port specified. Usage: mtt portuse <port>"
 else
-  netstat -aln -p tcp | grep -w :"$1"
+  netstat -aln -p tcp | grep -w $1
   printf "  \n"
   printf "To print process name, run ps aux | grep <PID>"
   printf "  \n"
