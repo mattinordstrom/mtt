@@ -31,6 +31,8 @@ if showMenu:
   print(' ')
   print('  git')
   print(' ')
+  print('  net')
+  print(' ')
   print('  misc')
   print(' ')
   exit()
@@ -148,6 +150,13 @@ if showAll or sys.argv[1] == 'git':
   print(" Changes from other branch without commiting:")
   print( BOLD+" git log --pretty=format:'%H' --no-merges --reverse $(git merge-base master feature/SER-1234)..feature/SER-1234 | tr '\\n' ' '"+ENDC)
   print( BOLD+" git cherry-pick --no-commit <commit1> <commit2> <...>"+ENDC)
+  print(' ')
+
+if showAll or sys.argv[1] == 'net':
+  print(YELLOW+'________NET________'+ENDC)
+  print(' ')
+  print(" Print network device info:")
+  print( BOLD+" ip addr | grep -A 999 -B 999 -E 'state UP|wlp|enx|10\.' "+ENDC)
   print(' ')
 
 if showAll or sys.argv[1] == 'misc':
