@@ -15,6 +15,7 @@ print(' ')
 
 if showAll or sys.argv[1] == 'intellij':
   print(YELLOW+'________IntelliJ________'+ENDC)
+  print(' File switcher:            ' + BOLD+'Ctrl + Tab'+ENDC)
   print(' Toggle bookmark on row:   ' + BOLD+'F11'+ENDC)
   print(' Show bookmarks:           ' + BOLD+'Shift + F11'+ENDC)
   print(' Next bookmark:            ' + BOLD+'Ctrl + Shift + Ä'+ENDC)
@@ -26,6 +27,7 @@ if showAll or sys.argv[1] == 'intellij':
 
 if showAll or sys.argv[1] == 'vscode':
   print(YELLOW+'________Visual Studio Code________'+ENDC)
+  print(' File switcher:            ' + BOLD+'Ctrl + Tab'+ENDC)
   print(' Go to file:               ' + BOLD+'Ctrl + P'+ENDC)
   print(' Run command:              ' + BOLD+'Ctrl + Shift + P'+ENDC)
   print(' Edit multiple rows:       ' + BOLD+'Shift + Alt + UpArrow/DownArrow'+ENDC)
