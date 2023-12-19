@@ -5,13 +5,14 @@ if [ $# -eq 0 ] || [ -z "$1" ]; then
   printf "No string specified. Usage: mtt base64 <string>"
 else
   input=$1
-  input="${input//-/+}"
-  input="${input//_//}"
   echo $input
   echo " "
 
+  inputFormatted="${input//-/+}"
+  inputFormatted="${inputFormatted//_//}"
+
   tput setaf 6; printf "DECODED: \n"; tput sgr0;
-  IFS='.' read -r -a array <<< "$input"
+  IFS='.' read -r -a array <<< "$inputFormatted"
   for element in "${array[@]}"
   do
     # Fix padding
