@@ -1,21 +1,29 @@
 #!/bin/bash
 
-printf "\n"
-
-printf "PHP: "; php -r 'echo phpversion();'
-printf "\n"
-printf "XDEBUG: "; php -r 'echo phpversion("xdebug");'
-
-printf "\n"
-printf "\n"
-
-printf "NODE: "; node -v
-printf "NPM: "; npm -v
+YELLOW="\e[33m%s\e[0m"
 
 printf "\n"
 
-printf "JAVA: "; java -version 2>&1 | grep version
+printf $YELLOW " PHP: "; php -r 'echo rtrim(phpversion());'
+printf "\n"
+printf $YELLOW " XDEBUG: "; php -r 'echo phpversion("xdebug");'
+
+printf "\n"
+printf "\n"
+
+printf $YELLOW " NODE: "; node -v
+printf $YELLOW " NPM: "; npm -v
 
 printf "\n"
 
-printf "GO: "; go version
+printf $YELLOW " JAVA: "; java -version 2>&1 | grep version
+
+printf "\n"
+
+printf $YELLOW " GO: "; go version
+
+printf "\n"
+
+printf $YELLOW " PYTHON: "; python3 -V
+
+printf "\n"
