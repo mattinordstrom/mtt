@@ -25,5 +25,6 @@ printf $YELLOW " GO: "; go version
 printf "\n"
 
 printf $YELLOW " PYTHON: "; python3 -V
+printf $YELLOW " PIP: "; pip3 --version
 
 printf "\n"
