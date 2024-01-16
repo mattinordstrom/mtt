@@ -94,6 +94,9 @@ if showAll or sys.argv[1] == 'watch':
   print(" Print last lines of file out.txt every 3 seconds:")
   print( BOLD+" watch -n 3 tail out.txt "+ENDC)
   print(' ')
+  print(" Print list with grep every 3 seconds:")
+  print( BOLD+" watch -n 3 'ls -lAh | grep test123' "+ENDC)
+  print(' ')
 
 if showAll or sys.argv[1] == 'sort':
   print(YELLOW+'________SORT________'+ENDC)

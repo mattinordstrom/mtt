@@ -49,9 +49,7 @@ scripts.append(scriptInfo('extract', 'MISC', 'Extract compressed file. (tar, 7z,
 scripts.append(scriptInfo('shorts', 'MISC', 'List of keyboard shortcuts for different applications.', ['?application'], True))
 scripts.append(scriptInfo('howto', 'MISC', 'Mixed howtos.', ['?application'], True))
 scripts.append(scriptInfo('week', 'MISC', 'Output current week info. Date, day, week number etc.', []))
-scripts.append(scriptInfo('calc', 'MISC', 'Calculator.', ['equation', '?numDecimals']))
 scripts.append(scriptInfo('countdown', 'MISC', 'Countdown.', ['minutes']))
-scripts.append(scriptInfo('savegptchat', 'MISC', 'Formatted GPT chat history from payload in clipboard', [], True))
 
 print('\n')
 print(BOLD + GREEN + '----- MTT - Mattis Terminal Toolkit -----\n' + ENDC)
