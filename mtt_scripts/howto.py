@@ -161,6 +161,9 @@ if showAll or sys.argv[1] == 'net':
   print(" Print network device info:")
   print( BOLD+" ip addr | grep -A 999 -B 999 -E 'state UP|wlp|enx|10\.' "+ENDC)
   print(' ')
+  print(" Scan network devices with nmap:")
+  print( BOLD+" sudo nmap -sn 192.168.50.1/24"+ENDC)
+  print(' ')
 
 if showAll or sys.argv[1] == 'misc':
   print(YELLOW+'________MISC________'+ENDC)
