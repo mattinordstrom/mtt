@@ -70,4 +70,13 @@ if showAll or sys.argv[1] == 'terminator':
   print(' New win:      ' + BOLD+'Ctrl + Shift + I'+ENDC)
   print(' ')
 
+if showAll or sys.argv[1] == 'mullvad':
+  print(YELLOW+'________Mullvad VPN________'+ENDC)
+  print(' Account info:    ' + BOLD+'mullvad account get'+ENDC)
+  print(' Account devices: ' + BOLD+'mullvad account list-devices'+ENDC)
+  print(' Show status:     ' + BOLD+'mullvad status -v'+ENDC)
+  print(' Connect:         ' + BOLD+'mullvad connect'+ENDC)
+  print(' Disconnect:      ' + BOLD+'mullvad disconnect'+ENDC)
+  print(' ')
+
 print(' ')
