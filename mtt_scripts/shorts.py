@@ -13,6 +13,15 @@ showAll = len(sys.argv) < 2
 
 print(' ')
 
+if showAll or sys.argv[1] == 'dbeaver':
+  print(YELLOW+'________DBeaver________'+ENDC)
+  print(' New console:              ' + BOLD+'Ctrl + Alt + Enter'+ENDC)
+  print(' Run template:             ' + BOLD+'Ctrl + Alt + Space'+ENDC)
+  print(' Select data source:       ' + BOLD+'Ctrl + 9'+ENDC)
+  print(' Select schema:            ' + BOLD+'Ctrl + 0'+ENDC)
+  print(' ')
+  print(' ')
+
 if showAll or sys.argv[1] == 'intellij':
   print(YELLOW+'________IntelliJ________'+ENDC)
   print(' File switcher:            ' + BOLD+'Ctrl + Tab'+ENDC)
@@ -25,22 +34,13 @@ if showAll or sys.argv[1] == 'intellij':
   print(' ')
   print(' ')
 
-if showAll or sys.argv[1] == 'vscode':
-  print(YELLOW+'________Visual Studio Code________'+ENDC)
-  print(' File switcher:            ' + BOLD+'Ctrl + Tab'+ENDC)
-  print(' Go to file:               ' + BOLD+'Ctrl + P'+ENDC)
-  print(' Run command:              ' + BOLD+'Ctrl + Shift + P'+ENDC)
-  print(' Edit multiple rows:       ' + BOLD+'Shift + Alt + UpArrow/DownArrow'+ENDC)
-  print(' ')
-  print(' ')
-
-if showAll or sys.argv[1] == 'dbeaver':
-  print(YELLOW+'________DBeaver________'+ENDC)
-  print(' New console:              ' + BOLD+'Ctrl + Alt + Enter'+ENDC)
-  print(' Run template:             ' + BOLD+'Ctrl + Alt + Space'+ENDC)
-  print(' Select data source:       ' + BOLD+'Ctrl + 9'+ENDC)
-  print(' Select schema:            ' + BOLD+'Ctrl + 0'+ENDC)
-  print(' ')
+if showAll or sys.argv[1] == 'mullvad':
+  print(YELLOW+'________Mullvad VPN________'+ENDC)
+  print(' Account info:    ' + BOLD+'mullvad account get'+ENDC)
+  print(' Account devices: ' + BOLD+'mullvad account list-devices'+ENDC)
+  print(' Show status:     ' + BOLD+'mullvad status -v'+ENDC)
+  print(' Connect:         ' + BOLD+'mullvad connect'+ENDC)
+  print(' Disconnect:      ' + BOLD+'mullvad disconnect'+ENDC)
   print(' ')
 
 if showAll or sys.argv[1] == 'nano':
@@ -56,13 +56,6 @@ if showAll or sys.argv[1] == 'nano':
   print(' ')
   print(' ')
 
-if showAll or sys.argv[1] == 'ubuntu':
-  print(YELLOW+'________Ubuntu________'+ENDC)
-  print(' Move win to other screen: ' + BOLD+'Super + Shift + LeftArrow/RightArrow'+ENDC)
-  print(' Maximize/minimize win:    ' + BOLD+'Super + UpArrow/DownArrow'+ENDC)
-  print(' ')
-  print(' ')
-  
 if showAll or sys.argv[1] == 'terminator':
   print(YELLOW+'________Terminator________'+ENDC)
   print(' Switch tabs:  ' + BOLD+'Ctrl + PageUp/PageDown'+ENDC)
@@ -70,13 +63,21 @@ if showAll or sys.argv[1] == 'terminator':
   print(' New win:      ' + BOLD+'Ctrl + Shift + I'+ENDC)
   print(' ')
 
-if showAll or sys.argv[1] == 'mullvad':
-  print(YELLOW+'________Mullvad VPN________'+ENDC)
-  print(' Account info:    ' + BOLD+'mullvad account get'+ENDC)
-  print(' Account devices: ' + BOLD+'mullvad account list-devices'+ENDC)
-  print(' Show status:     ' + BOLD+'mullvad status -v'+ENDC)
-  print(' Connect:         ' + BOLD+'mullvad connect'+ENDC)
-  print(' Disconnect:      ' + BOLD+'mullvad disconnect'+ENDC)
+if showAll or sys.argv[1] == 'ubuntu':
+  print(YELLOW+'________Ubuntu________'+ENDC)
+  print(' Move win to other screen: ' + BOLD+'Super + Shift + LeftArrow/RightArrow'+ENDC)
+  print(' Maximize/minimize win:    ' + BOLD+'Super + UpArrow/DownArrow'+ENDC)
   print(' ')
+  print(' ')
+
+if showAll or sys.argv[1] == 'vscode':
+  print(YELLOW+'________Visual Studio Code________'+ENDC)
+  print(' File switcher:            ' + BOLD+'Ctrl + Tab'+ENDC)
+  print(' Go to file:               ' + BOLD+'Ctrl + P'+ENDC)
+  print(' Run command:              ' + BOLD+'Ctrl + Shift + P'+ENDC)
+  print(' Edit multiple rows:       ' + BOLD+'Shift + Alt + UpArrow/DownArrow'+ENDC)
+  print(' ')
+  print(' ')
+
 
 print(' ')
