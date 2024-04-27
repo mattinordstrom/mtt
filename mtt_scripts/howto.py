@@ -21,17 +21,15 @@ if showMenu:
   print(' ')
   print('  grep')
   print(' ')
-  print('  misc')
-  print(' ')
   print('  net')
+  print(' ')
+  print('  output')
   print(' ')
   print('  regex')
   print(' ')
   print('  sed')
   print(' ')
   print('  sort')
-  print(' ')
-  print('  watch')
   print(' ')
   print('  xargs')
   print(' ')
@@ -108,13 +106,6 @@ if showAll or sys.argv[1] == 'grep':
   print( BOLD+" fgrep -wx -v -f listOfIds3.csv idsThatExistsInBothLists.csv >finalresult.csv "+ENDC)
   print(' ')
 
-if showAll or sys.argv[1] == 'misc':
-  print(YELLOW+'________MISC________'+ENDC)
-  print(' ')
-  print(" Print terminal output to file:")
-  print( BOLD+' npm run dev 2>&1 | tee ~/Desktop/npm_run_output.txt'+ENDC)
-  print(' ')
-
 if showAll or sys.argv[1] == 'net':
   print(YELLOW+'________NET________'+ENDC)
   print(' ')
@@ -123,6 +114,19 @@ if showAll or sys.argv[1] == 'net':
   print(' ')
   print(" Scan network devices with nmap:")
   print( BOLD+" sudo nmap -sn 192.168.50.1/24"+ENDC)
+  print(' ')
+
+if showAll or sys.argv[1] == 'output':
+  print(YELLOW+'________OUTPUT________'+ENDC)
+  print(' ')
+  print(" Print last lines of file out.txt every 3 seconds:")
+  print( BOLD+" watch -n 3 tail out.txt "+ENDC)
+  print(' ')
+  print(" Print list with grep every 3 seconds:")
+  print( BOLD+" watch -n 3 'ls -lAh | grep test123' "+ENDC)
+  print(' ')
+  print(" Print terminal output to file:")
+  print( BOLD+' npm run dev 2>&1 | tee ~/Desktop/npm_run_output.txt'+ENDC)
   print(' ')
 
 if showAll or sys.argv[1] == 'regex':
@@ -151,16 +155,6 @@ if showAll or sys.argv[1] == 'sort':
   print(' ')
   print(" Find duplicates:")
   print( BOLD+" mtt fromc | sort | uniq -cd"+ENDC)
-  print(' ')
-
-if showAll or sys.argv[1] == 'watch':
-  print(YELLOW+'________WATCH________'+ENDC)
-  print(' ')
-  print(" Print last lines of file out.txt every 3 seconds:")
-  print( BOLD+" watch -n 3 tail out.txt "+ENDC)
-  print(' ')
-  print(" Print list with grep every 3 seconds:")
-  print( BOLD+" watch -n 3 'ls -lAh | grep test123' "+ENDC)
   print(' ')
 
 if showAll or sys.argv[1] == 'xargs':
