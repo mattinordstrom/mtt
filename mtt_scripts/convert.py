@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-# pip install pyperclip dicttoxml xmltodict
+# sudo apt install python3-pyperclip python3-dicttoxml python3-xmltodict
 
 import pyperclip, json, xmltodict, sys
 from defusedxml.minidom import parseString
@@ -14,6 +14,8 @@ toFormat = sys.argv[2]
 outputMode = ""
 if len(sys.argv) > 3:
   outputMode = sys.argv[3]
+
+pyperclip.set_clipboard('xclip')
 
 input = pyperclip.paste()
 
