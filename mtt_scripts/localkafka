@@ -1,19 +1,25 @@
 #!/bin/bash
 
-existingContainer=$(docker ps -a | grep -m 1 "johnnypark/kafka-zookeeper" | cut -c 1-12)
+rm -rf /tmp/zookeeper/*
 
-#echo $existingContainer
-#if [ -z "$existingContainer" ]; then
- #   docker run -p 2181:2181 -p 9092:9092 -e ADVERTISED_HOST=127.0.0.1 johnnypark/kafka-zookeeper
-#else
- #   docker start $existingContainer
-#fi
+rm -rf /tmp/kafka-logs/*
 
+# Define the paths to your Kafka installation and configuration files
+KAFKA_DIR=$(ls ~ | grep "kafka_" | head -1)
+KAFKA_DIR=~/$KAFKA_DIR
+ZK_CONFIG=$KAFKA_DIR/config/zookeeper.properties
+KAFKA_CONFIG=$KAFKA_DIR/config/server.properties
 
-if [ ! -z "$existingContainer" ]; then
-    echo "Removing old container..."
-    docker rm $existingContainer
-fi
+SLEEP_SEC=4
 
-docker run -p 2181:2181 -p 9092:9092 -e ADVERTISED_HOST=127.0.0.1 johnnypark/kafka-zookeeper
+# Start Zookeeper
+MSG1="Starting Zookeeper. In $SLEEP_SEC seconds Kafka server will start in new tab..."
+terminator --new-tab -e "bash -c 'echo $MSG1 && $KAFKA_DIR/bin/zookeeper-server-start.sh $ZK_CONFIG; exec bash'" &
 
+sleep $SLEEP_SEC
+
+# Start kafka server
+MSG2="Starting Kafka server..."
+terminator --new-tab -e "bash -c 'echo $MSG2 && $KAFKA_DIR/bin/kafka-server-start.sh $KAFKA_CONFIG; exec bash'" &
+
+echo "[[ $KAFKA_DIR ]] Zookeeper and Kafka server are starting in new tabs..."
