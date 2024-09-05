@@ -9,6 +9,7 @@ KAFKA_KRAFT_CONFIG=$KAFKA_DIR/config/kraft/server.properties
 
 #Remove old logs and setup storage
 rm -rf /tmp/kafka-logs/*
+rm -rf /tmp/kraft-combined-logs/*
 randomid=$($KAFKA_DIR/bin/kafka-storage.sh random-uuid)
 $KAFKA_DIR/bin/kafka-storage.sh format -t $randomid -c $KAFKA_KRAFT_CONFIG
 
