@@ -1,25 +1,17 @@
 #!/bin/bash
 
-rm -rf /tmp/zookeeper/*
 
-rm -rf /tmp/kafka-logs/*
-
-# Define the paths to your Kafka installation and configuration files
-KAFKA_DIR=$(ls ~ | grep "kafka_" | head -1)
+# Locate Kafka directory
+KAFKA_DIR=$(ls ~ | grep -i "kafka_" | head -1)
 KAFKA_DIR=~/$KAFKA_DIR
-ZK_CONFIG=$KAFKA_DIR/config/zookeeper.properties
-KAFKA_CONFIG=$KAFKA_DIR/config/server.properties
+KAFKA_KRAFT_CONFIG=$KAFKA_DIR/config/kraft/server.properties
 
-SLEEP_SEC=4
 
-# Start Zookeeper
-MSG1="Starting Zookeeper. In $SLEEP_SEC seconds Kafka server will start in new tab..."
-terminator --new-tab -e "bash -c 'echo $MSG1 && $KAFKA_DIR/bin/zookeeper-server-start.sh $ZK_CONFIG; exec bash'" &
+#Remove old logs and setup storage
+rm -rf /tmp/kafka-logs/*
+randomid=$($KAFKA_DIR/bin/kafka-storage.sh random-uuid)
+$KAFKA_DIR/bin/kafka-storage.sh format -t $randomid -c $KAFKA_KRAFT_CONFIG
 
-sleep $SLEEP_SEC
 
-# Start kafka server
-MSG2="Starting Kafka server..."
-terminator --new-tab -e "bash -c 'echo $MSG2 && $KAFKA_DIR/bin/kafka-server-start.sh $KAFKA_CONFIG; exec bash'" &
-
-echo "[[ $KAFKA_DIR ]] Zookeeper and Kafka server are starting in new tabs..."
+echo "Kafka server starting..."
+$KAFKA_DIR/bin/kafka-server-start.sh $KAFKA_KRAFT_CONFIG
