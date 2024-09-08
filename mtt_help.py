@@ -43,6 +43,7 @@ scripts.append(scriptInfo('convert', 'DEV_TOOLS', 'Converts xml/json from clipbo
 scripts.append(scriptInfo('uuid', 'DEV_TOOLS', 'Generate random uuid v4.', []))
 scripts.append(scriptInfo('pyscratch', 'DEV_TOOLS', 'Creates python scratch file in ~/Desktop/py_scratches', [], True))
 scripts.append(scriptInfo('goscratch', 'DEV_TOOLS', 'Creates golang scratch file in ~/Desktop/go_scratches', [], True))
+scripts.append(scriptInfo('compose', 'DEV_TOOLS', 'Docker compose template.', []))
 
 scripts.append(scriptInfo('cat', 'MISC', 'List mtt scripts dir. Or outputs a scripts content.', ['?scriptname']))
 scripts.append(scriptInfo('extract', 'MISC', 'Extract compressed file. (tar, 7z, zip...)', ['filepath']))
