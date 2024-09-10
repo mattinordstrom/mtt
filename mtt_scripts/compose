@@ -36,8 +36,9 @@ echo "----------------------------"
 echo " "
 
 tput setaf 3
-echo "Run one service:    $ sudo docker compose up web"
-echo "Run all (detached): $ sudo docker compose up -d"
-echo "List containers:    $ sudo docker compose ps"
-echo "Kill all:           $ sudo docker compose down"
+echo "Run one service:    $ docker compose up web"
+echo "Run all (detached): $ docker compose up -d"
+echo "List containers:    $ docker compose ps"
+echo "Kill all:           $ docker compose down"
+echo "Show logs:          $ docker compose logs web"
 tput sgr0;
