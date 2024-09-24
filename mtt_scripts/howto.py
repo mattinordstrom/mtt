@@ -31,6 +31,8 @@ if showMenu:
   print(' ')
   print('  sort')
   print(' ')
+  print('  stat')
+  print(' ')
   print('  xargs')
   print(' ')
   exit()
@@ -45,8 +47,8 @@ if showAll or sys.argv[1] == 'find':
   print( BOLD+" grep -i -Hr \"ENDC\" ~/projects_priv/mtt "+ENDC)
   print(' ')
   print(' ')
-  print(" Find all occurances of \"FullScreen\" in xml files (including hidden) in projects folder:")
-  print( BOLD+" sudo grep -Hr --include \*.xml \"FullScreen\" ~/projects "+ENDC)
+  print(' Find all occurances of "FullScreen" in xml files (including hidden) in projects folder:')
+  print( BOLD+' sudo grep -Hr --include \\*.xml \"FullScreen\" ~/projects '+ENDC)
   print(' ')
   print('------------------------')
   print(' ')
@@ -117,7 +119,7 @@ if showAll or sys.argv[1] == 'net':
   print(YELLOW+'________NET________'+ENDC)
   print(' ')
   print(" Print network device info:")
-  print( BOLD+" ip addr | grep -A 999 -B 999 -E 'state UP|wlp|enx|10\.' "+ENDC)
+  print( BOLD+" ip addr | grep -A 999 -B 999 -E 'state UP|wlp|enx|10\\.' "+ENDC)
   print(' ')
   print(" Scan network devices with nmap:")
   print( BOLD+" sudo nmap -sn 192.168.50.1/24"+ENDC)
@@ -146,7 +148,7 @@ if showAll or sys.argv[1] == 'regex':
   print( BOLD+" grep -o -P '(Banana.*?),' < ./file1.csv > ~/Desktop/output.txt  "+ENDC)
   print(' ')
   print(" Find/replace captured group (intellij/vscode):")
-  print( BOLD+' Search title attr in html: title="(.*)"(\/>*) '+ENDC)
+  print( BOLD+' Search title attr in html: title="(.*)"(\\/>*) '+ENDC)
   print( BOLD+' Replace with title tag: $2<title>$1</title> '+ENDC)
   print(' ')
 
@@ -162,6 +164,13 @@ if showAll or sys.argv[1] == 'sort':
   print(' ')
   print(" Find duplicates:")
   print( BOLD+" mtt fromc | sort | uniq -cd"+ENDC)
+  print(' ')
+
+if showAll or sys.argv[1] == 'stat':
+  print(YELLOW+'________STAT________'+ENDC)
+  print(' ')
+  print(" List rights of files in current dir:")
+  print( BOLD+' stat -c "%A %a %n" * '+ENDC)
   print(' ')
 
 if showAll or sys.argv[1] == 'xargs':
