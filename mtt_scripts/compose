@@ -41,4 +41,5 @@ echo "Run all (detached): $ docker compose up -d"
 echo "List containers:    $ docker compose ps"
 echo "Kill all:           $ docker compose down"
 echo "Show logs:          $ docker compose logs web"
+echo "Rebuild:            $ docker compose up -d --no-deps --build web"
 tput sgr0;
