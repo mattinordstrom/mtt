@@ -7,16 +7,15 @@ export PATH=$PATH:$HOME/mtt
 ```
   
   
-### Prerequisites  
-Note: The scripts has been used and tested mainly on Ubuntu.  
-Install:
-- python3
-- (xclip)
-- (exiftool)
-- (netstat)
-- (docker)  
-- (p7zip-full)
-- ...
+### python venv setup 
+```sh
+python3 -m venv .mtt_venv
+```
+
+```sh
+./.mtt_venv/bin/python3 -m pip install -r requirements.txt
+```
+
   
 
 Run **$ mtt h** to see available commands.
