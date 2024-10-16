@@ -1,15 +1,18 @@
 #!/bin/bash
 
+SCRIPT_DIR="$(dirname "$0")"
+
 if [ "$1" == "h" ] || [ "$1" == "help" ] || [ "$1" == "-h" ] || [ "$1" == "-help" ] || [ "$1" == "--h" ] || [ "$1" == "--help" ]; then
-    ./.mtt_venv/bin/python3 "$(dirname "$0")/mtt_help.py"
+    "$SCRIPT_DIR/.mtt_venv/bin/python3" "$SCRIPT_DIR/mtt_help.py"
     exit
 fi
 
-FILE="$(dirname "$0")/mtt_scripts/"$1
+FILE="$SCRIPT_DIR/mtt_scripts/"$1
+
 if test -f "$FILE"; then
     "$FILE" "${@:2}"
 elif test -f "$FILE.py"; then
-    ./.mtt_venv/bin/python3 "$FILE.py" "${@:2}"
+    "$SCRIPT_DIR/.mtt_venv/bin/python3" "$FILE.py" "${@:2}"
 else
     echo "Invalid. Use mtt h to see available commands"
 fi
