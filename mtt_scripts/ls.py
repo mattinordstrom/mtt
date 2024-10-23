@@ -1,13 +1,10 @@
-import os
-import stat
-import time
-import argparse
-import getpass
+import os, stat, time, argparse, getpass, pwd
 from tabulate import tabulate
+
 
 output = []
 
-BLUE = '\033[94m'
+BOLD_BLUE = '\033[1;94m'
 ENDC = '\033[0m'
 
 def get_permissions(mode):
@@ -16,7 +13,7 @@ def get_permissions(mode):
     symbolic = '-'
     if stat.S_ISDIR(mode):
         symbolic = 'd'
-    elif stat.S_ISLNK(mode): #TODO this is broken?
+    elif stat.S_ISLNK(mode):
         symbolic = 'l'
 
     # User permissions
@@ -51,15 +48,23 @@ def list_files(dir_to_list):
     for entry in sorted(entries):
         full_path = os.path.join(dir_to_list, entry)
         try:
-            mode = os.stat(full_path).st_mode
+            mode = os.lstat(full_path).st_mode
             size_in_bytes = os.path.getsize(full_path)
-            mtime = time.strftime("%b %d %Y %H:%M:%S", time.localtime(os.path.getmtime(full_path)))
+            mtime = time.strftime("%b %d %Y %H:%M", time.localtime(os.path.getmtime(full_path)))
             numeric_perm, symbolic_perm = get_permissions(mode)
+
+            uid = os.lstat(full_path).st_uid
+            user = pwd.getpwuid(uid).pw_name
+            if len(user) > 10:
+                user = user[:10] + "..."
 
             formattedName = entry
             if stat.S_ISDIR(mode):
-                formattedName = BLUE + entry + ENDC
-
+                formattedName = BOLD_BLUE + entry + ENDC
+            elif stat.S_ISLNK(mode):
+                target = os.readlink(full_path)
+                formattedName = formattedName + ' -> ' + target
+            
             if size_in_bytes >= 1024 * 1024:
                 size = round(size_in_bytes / (1024 * 1024), 2)
                 size_str = f"{size} MB"
@@ -67,7 +72,7 @@ def list_files(dir_to_list):
                 size = round(size_in_bytes / 1024, 2)
                 size_str = f"{size} KB"
 
-            output.append([symbolic_perm, numeric_perm, size_str, mtime, formattedName])
+            output.append([symbolic_perm, numeric_perm, user, size_str, mtime, formattedName])
         except FileNotFoundError:
             print(f"FileNotFoundError: {full_path} not found")
     
