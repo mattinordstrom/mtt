@@ -2,8 +2,6 @@ import os, stat, time, argparse, getpass, pwd
 from tabulate import tabulate
 
 
-output = []
-
 BOLD_BLUE = '\033[1;94m'
 ENDC = '\033[0m'
 
@@ -39,9 +37,21 @@ def get_permissions(mode):
     
     return numeric, symbolic
 
+def format_size(size_in_bytes):
+    if size_in_bytes >= 1024 * 1024 * 1024:
+        size = round(size_in_bytes / (1024 * 1024 * 1024), 2)
+        return f"{size} GB"
+    elif size_in_bytes >= 1024 * 1024:
+        size = round(size_in_bytes / (1024 * 1024), 2)
+        return f"{size} MB"
+    elif size_in_bytes >= 1024:
+        size = round(size_in_bytes / 1024, 2)
+        return f"{size} KB"
+    return f"{size_in_bytes} bytes"
 
 def list_files(dir_to_list):
     """List files and directories."""
+    output = []
     dir_to_list = os.path.abspath(dir_to_list) 
     entries = os.listdir(dir_to_list)
 
@@ -65,18 +75,13 @@ def list_files(dir_to_list):
                 target = os.readlink(full_path)
                 formattedName = formattedName + ' -> ' + target
             
-            if size_in_bytes >= 1024 * 1024:
-                size = round(size_in_bytes / (1024 * 1024), 2)
-                size_str = f"{size} MB"
-            else:
-                size = round(size_in_bytes / 1024, 2)
-                size_str = f"{size} KB"
+            size_str = format_size(size_in_bytes)
 
             output.append([symbolic_perm, numeric_perm, user, size_str, mtime, formattedName])
         except FileNotFoundError:
             print(f"FileNotFoundError: {full_path} not found")
     
-    print(tabulate(output, headers=[], tablefmt="plain"))
+    return output
 
 
 if __name__ == "__main__":
@@ -85,7 +90,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     dir_to_list = str(args.dir_to_list)
 
-    if(dir_to_list.startswith('~')):
-        dir_to_list = dir_to_list.replace('~', '/home/' + getpass.getuser(), 1)
-
-    list_files(dir_to_list.rstrip('/') + '/')
+    dir_to_list = os.path.expanduser(args.dir_to_list.rstrip('/') + '/')
+    
+    output = list_files(dir_to_list)
+    print(tabulate(output, headers=[], tablefmt="plain"))
