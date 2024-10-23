@@ -3,19 +3,12 @@ import stat
 import time
 import argparse
 import getpass
+from tabulate import tabulate
 
-# TODO nicer output for file more than 1 mb
-# TODO output as table
+output = []
 
 BLUE = '\033[94m'
 ENDC = '\033[0m'
-
-def print_row(mode, name, size, mtime, numeric_perm, symbolic_perm):
-    formattedName = name
-    if stat.S_ISDIR(mode):
-        formattedName = BLUE + name + ENDC
-
-    print(f"{symbolic_perm} {numeric_perm}  {size} kb  {mtime}  {formattedName}")
 
 def get_permissions(mode):
     """Get file permissions in numeric and symbolic form."""
@@ -59,13 +52,26 @@ def list_files(dir_to_list):
         full_path = os.path.join(dir_to_list, entry)
         try:
             mode = os.stat(full_path).st_mode
-            size = f"{os.path.getsize(full_path) / 1024:.2f}"
+            size_in_bytes = os.path.getsize(full_path)
             mtime = time.strftime("%b %d %Y %H:%M:%S", time.localtime(os.path.getmtime(full_path)))
             numeric_perm, symbolic_perm = get_permissions(mode)
 
-            print_row(mode, entry, size, mtime, numeric_perm, symbolic_perm)
+            formattedName = entry
+            if stat.S_ISDIR(mode):
+                formattedName = BLUE + entry + ENDC
+
+            if size_in_bytes >= 1024 * 1024:
+                size = round(size_in_bytes / (1024 * 1024), 2)
+                size_str = f"{size} MB"
+            else:
+                size = round(size_in_bytes / 1024, 2)
+                size_str = f"{size} KB"
+
+            output.append([symbolic_perm, numeric_perm, size_str, mtime, formattedName])
         except FileNotFoundError:
             print(f"FileNotFoundError: {full_path} not found")
+    
+    print(tabulate(output, headers=[], tablefmt="plain"))
 
 
 if __name__ == "__main__":
