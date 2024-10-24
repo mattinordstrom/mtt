@@ -3,6 +3,7 @@ from tabulate import tabulate
 
 
 BOLD_BLUE = '\033[1;94m'
+GREEN = '\033[92m'
 ENDC = '\033[0m'
 
 def get_permissions(mode):
@@ -74,6 +75,8 @@ def list_files(dir_to_list):
             elif stat.S_ISLNK(mode):
                 target = os.readlink(full_path)
                 formattedName = formattedName + ' -> ' + target
+            elif mode & stat.S_IXUSR:
+                formattedName = GREEN + entry + ENDC
             
             size_str = format_size(size_in_bytes)
 
