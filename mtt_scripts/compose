@@ -44,8 +44,12 @@ echo " "
 tput setaf 3
 echo "Run one service:    $ docker compose up web"
 echo "Run all (detached): $ docker compose up -d"
-echo "List containers:    $ docker compose ps"
+echo " "
 echo "Kill all:           $ docker compose down"
+echo "Remove container:   $ docker rm /redis"
+echo " "
+echo "List containers:    $ docker compose ps"
 echo "Show logs:          $ docker compose logs web"
 echo "Rebuild:            $ docker compose up -d --no-deps --build web"
+
 tput sgr0;
