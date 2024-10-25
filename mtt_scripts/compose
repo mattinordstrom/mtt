@@ -8,10 +8,6 @@ script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd $script_dir/../resources
 yml_dir="$(pwd)"
 
-echo " "
-echo "Changed dir to $yml_dir"
-echo " "
-
 file_to_check="docker-compose.yaml"
 template_file="docker-compose_template.yaml"
 if [ ! -f "$file_to_check" ]; then
