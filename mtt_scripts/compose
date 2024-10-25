@@ -25,10 +25,16 @@ fi
 echo " "
 echo "----------------------------"
 echo " "
-echo "Services in yaml: "
 
+echo "Services in yaml: "
 tput bold; tput setaf 6;
-docker compose config --services
+docker compose config --services | sort
+tput sgr0;
+
+echo " "
+echo "Currently running: "
+tput bold; tput setaf 2;
+docker compose ps --format '{{.Service}}' | sort
 tput sgr0;
 
 echo " "
