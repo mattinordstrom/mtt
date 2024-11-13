@@ -52,6 +52,7 @@ scripts.append(scriptInfo('shorts', 'MISC', 'List of keyboard shortcuts for diff
 scripts.append(scriptInfo('howto', 'MISC', 'Mixed howtos.', ['?application'], True))
 scripts.append(scriptInfo('week', 'MISC', 'Output current week info. Date, day, week number etc.', []))
 scripts.append(scriptInfo('countdown', 'MISC', 'Countdown.', ['minutes']))
+scripts.append(scriptInfo('hist', 'MISC', 'Copy command from history.', ['filter'], True))
 
 print('\n')
 print(BOLD + GREEN + '----- MTT - Mattis Terminal Toolkit -----\n' + ENDC)
