@@ -2,9 +2,13 @@
 import os, sys, pyperclip
 
 GREEN = '\033[92m'
-YELLOW = '\033[93m'
+YELLOW = '\033[33m'
+BLUE = '\033[94m'
+
 BOLD_GREEN = '\033[1;92m'
+BOLD_YELLOW = '\033[1;33m'
 BOLD_BLUE = '\033[1;94m'
+
 BOLD = '\033[1m'
 ENDC = '\033[0m'
 
@@ -38,7 +42,11 @@ def main():
   output_array = []
   for idx, line in enumerate(lines):
     output_array.append(line)
-    print(BOLD_BLUE + str(idx+1) + " -> " + ENDC + line)
+
+    if idx % 2 == 0:
+      print(BOLD_BLUE + str(idx+1) + " ->  " + ENDC + BLUE + line + ENDC)
+    else:
+      print(BOLD_YELLOW + str(idx+1) + " ->  " + ENDC + YELLOW + line + ENDC)
 
 
   user_input = input("\nSelect a command to copy (enter 0 to exit): ")
