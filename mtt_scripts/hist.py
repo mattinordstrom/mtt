@@ -27,7 +27,7 @@ def read_last_lines(file_path, filter, num_lines=300):
           timestamp = clean_line[clean_line.find(': ') + 2 : clean_line.find(':', 5)]
           clean_line = clean_line[clean_line.find(';') + 1:]
 
-          if filter in line and not clean_line.startswith("history") and not clean_line.startswith("mtt hist"):
+          if clean_line != '' and filter in line and not clean_line.startswith("history") and not clean_line.startswith("mtt hist"):
             clean_lines.append([clean_line, timestamp])
 
         # Return the last 300 lines of result
