@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import os, sys, pyperclip, datetime
 
+RED = '\033[91m'
 GREEN = '\033[92m'
 YELLOW = '\033[33m'
 BLUE = '\033[94m'
@@ -23,6 +24,11 @@ def read_last_lines(file_path, filter, num_lines=300):
 
         clean_lines = []
         for line in last_lines:
+          if not line.startswith(":"):
+            continue
+
+            # TODO fix commands with newline!
+
           clean_line = line.strip()
           timestamp = clean_line[clean_line.find(': ') + 2 : clean_line.find(':', 5)]
           clean_line = clean_line[clean_line.find(';') + 1:]
@@ -50,10 +56,15 @@ def main():
     dt_object = datetime.datetime.fromtimestamp(int(line[1]))
     readable_date = dt_object.strftime('%d/%m/%Y')
 
+    # TODO fix commands with newline!
+    alert = ""
+    if line[0].endswith("\\"):
+      alert = RED+"!!!!!!"+ENDC
+
     if idx % 2 == 0:
-      print(BOLD_BLUE + str(idx+1) + " -> " + ENDC + ITALIC + readable_date + ENDC + "  " + BLUE + line[0] + ENDC)
+      print(BOLD_BLUE + str(idx+1) + " -> " + ENDC + ITALIC + readable_date + ENDC + "  " + BLUE + line[0] + ENDC + alert)
     else:
-      print(BOLD_YELLOW + str(idx+1) + " -> " + ENDC + ITALIC + readable_date + ENDC + "  " + YELLOW + line[0] + ENDC)
+      print(BOLD_YELLOW + str(idx+1) + " -> " + ENDC + ITALIC + readable_date + ENDC + "  " + YELLOW + line[0] + ENDC + alert)
 
 
   user_input = input("\nSelect a command to copy (enter 0 to exit): ")
