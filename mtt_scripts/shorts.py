@@ -19,6 +19,7 @@ if showAll or sys.argv[1] == 'dbeaver':
   print(' Run template:             ' + BOLD+'Ctrl + Alt + Space'+ENDC)
   print(' Select data source:       ' + BOLD+'Ctrl + 9'+ENDC)
   print(' Select schema:            ' + BOLD+'Ctrl + 0'+ENDC)
+  print(' Open SQL script:          ' + BOLD+'F3'+ENDC)
   print(' ')
   print(' ')
 
