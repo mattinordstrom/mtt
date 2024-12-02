@@ -1,4 +1,4 @@
-import os, stat, time, argparse, getpass, pwd
+import os, stat, time, argparse, pwd
 from tabulate import tabulate
 
 
@@ -50,7 +50,7 @@ def format_size(size_in_bytes):
         return f"{size} KB"
     return f"{size_in_bytes} bytes"
 
-def list_files(dir_to_list):
+def get_list_files(dir_to_list, show_only_directories):
     """List files and directories."""
     output = []
     dir_to_list = os.path.abspath(dir_to_list) 
@@ -80,7 +80,8 @@ def list_files(dir_to_list):
             
             size_str = format_size(size_in_bytes)
 
-            output.append([symbolic_perm, numeric_perm, user, size_str, mtime, formattedName])
+            if not show_only_directories or (show_only_directories and stat.S_ISDIR(mode)):
+                output.append([symbolic_perm, numeric_perm, user, size_str, mtime, formattedName])
         except FileNotFoundError:
             print(f"FileNotFoundError: {full_path} not found")
     
@@ -89,11 +90,11 @@ def list_files(dir_to_list):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="List files and directories.")
-    parser.add_argument("dir_to_list", nargs="?", default=".", help="Directory to list (default: current directory).")
+    parser.add_argument('-d', action='store_true', help='List only directories.')
+    parser.add_argument("dir_to_list", nargs="?", default=".", type=str, help="Directory to list (default: current directory).")
     args = parser.parse_args()
-    dir_to_list = str(args.dir_to_list)
 
     dir_to_list = os.path.expanduser(args.dir_to_list.rstrip('/') + '/')
     
-    output = list_files(dir_to_list)
+    output = get_list_files(dir_to_list, args.d)
     print(tabulate(output, headers=[], tablefmt="plain"))
