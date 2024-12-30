@@ -50,12 +50,24 @@ def format_size(size_in_bytes):
         return f"{size} KB"
     return f"{size_in_bytes} bytes"
 
-def get_list_files(dir_to_list, show_only_directories):
+def get_list_files(dir_to_list, show_only_directories, recursive=False):
     """List files and directories."""
     output = []
     dir_to_list = os.path.abspath(dir_to_list) 
-    entries = os.listdir(dir_to_list)
 
+    if recursive:
+        for folder, subs, files in os.walk(dir_to_list):
+            print(BOLD_BLUE + f"\n{folder}" + ENDC)
+        
+            for dir_name in subs:
+                print(BOLD_BLUE + f"  {os.path.join(folder, dir_name)}" + ENDC)
+            
+            for file_name in files:
+                print(f"  {os.path.join(folder, file_name)}")
+
+        return []
+
+    entries = os.listdir(dir_to_list)
     for entry in sorted(entries):
         full_path = os.path.join(dir_to_list, entry)
         try:
@@ -91,10 +103,11 @@ def get_list_files(dir_to_list, show_only_directories):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="List files and directories.")
     parser.add_argument('-d', action='store_true', help='List only directories.')
+    parser.add_argument('-r', action='store_true', help='Recursive.')
     parser.add_argument("dir_to_list", nargs="?", default=".", type=str, help="Directory to list (default: current directory).")
     args = parser.parse_args()
 
     dir_to_list = os.path.expanduser(args.dir_to_list.rstrip('/') + '/')
     
-    output = get_list_files(dir_to_list, args.d)
+    output = get_list_files(dir_to_list, args.d, args.r)
     print(tabulate(output, headers=[], tablefmt="plain"))
