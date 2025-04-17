@@ -1,6 +1,6 @@
 #!/bin/bash
 
-neofetch --off --color_blocks off --disable wm theme icons kernel uptime packages resolution terminal --memory_unit gib --bold off
+neofetch --off --color_blocks off --disable wm theme icons kernel uptime packages resolution term --memory_unit gib --bold off
 
 #######################################################
 
