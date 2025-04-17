@@ -1,0 +1,40 @@
+#!/bin/bash
+
+neofetch --off --color_blocks off --disable wm theme icons kernel uptime packages resolution terminal --memory_unit gib --bold off
+
+#######################################################
+
+echo "----------------------------------"
+echo " "
+echo "Wireless: "
+ip addr | grep wlp -A 3 | grep "inet "
+echo "Network cable: "
+ip addr | grep enp -A 3 | grep "inet "
+
+#######################################################
+
+echo " "
+echo "----------------------------------"
+echo " "
+hist_output=$(cat ~/.zsh_history | grep "sudo apt upgrade")
+echo "APT last upgrade: "
+
+last_upgraded=""
+while IFS= read -r line; do
+    # Ignore lines containing ".zsh_history"
+    if [[ "$line" != *".zsh_history"* ]]; then
+        last_upgraded="$line"
+    fi
+done <<< "$hist_output"
+
+timestamp=$(echo "$last_upgraded" | grep -oP '(?<=: )[0-9]+(?=:)')
+readable_date=$(date -d @"$timestamp" '+%Y-%m-%d %H:%M:%S')
+
+
+today_seconds=$(date '+%s')
+readable_date_seconds=$(date -d "$readable_date" '+%s')
+# Calculate the difference in seconds and convert to days (rounded up)
+difference_days=$(( (today_seconds - readable_date_seconds + 86399) / 86400 ))
+
+
+echo -e "$readable_date \e[1;31m$difference_days days ago!\e[0m"
