@@ -1,5 +1,9 @@
 #!/bin/bash
 
+
+# To make script run at login add file terminator.desktop (https://github.com/mattinordstrom/gists/blob/main/terminator.desktop) to ~/.config/autostart
+# Exec=terminator -e 'zsh -c "cd /home/"$USER"/projects_priv/mtt/ && ./mtt s; exec zsh"'
+
 neofetch --off --color_blocks off --disable wm theme icons kernel uptime packages resolution term --memory_unit gib --bold off
 
 #######################################################
