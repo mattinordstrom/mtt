@@ -32,13 +32,19 @@ while IFS= read -r line; do
 done <<< "$hist_output"
 
 timestamp=$(echo "$last_upgraded" | grep -oP '(?<=: )[0-9]+(?=:)')
-readable_date=$(date -d @"$timestamp" '+%Y-%m-%d %H:%M:%S')
+readable_date_time=$(date -d @"$timestamp" '+%Y-%m-%d %H:%M:%S')
+readable_date=$(date -d @"$timestamp" '+%Y-%m-%d')
 
 
 today_seconds=$(date '+%s')
 readable_date_seconds=$(date -d "$readable_date" '+%s')
 # Calculate the difference in seconds and convert to days (rounded up)
-difference_days=$(( (today_seconds - readable_date_seconds + 86399) / 86400 ))
+difference_days=$(( (today_seconds - $readable_date_seconds + 86399) / 86400 ))
 
-
-echo -e "$readable_date \e[1;31m$difference_days days ago!\e[0m"
+if [ "$difference_days" -eq 1 ]; then
+    echo -e "$readable_date_time \e[1;32mUpdated within last 24 hours!\e[0m"
+elif [ "$difference_days" -lt 4 ]; then
+    echo -e "$readable_date_time \e[1;33m$difference_days days ago!\e[0m"
+else
+    echo -e "$readable_date_time \e[1;31m$difference_days days ago!\e[0m"
+fi
