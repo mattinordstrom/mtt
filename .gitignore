@@ -3,3 +3,5 @@ docker-compose.yaml
 .mtt_venv
 resources/miniodata
 resources/minioconfig
+resources/mongodb_data
+resources/unifi-network-application
