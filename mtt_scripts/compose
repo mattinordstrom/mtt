@@ -21,6 +21,7 @@ template_file="docker-compose_template.yaml"
 if [ ! -f "$file_to_check" ]; then
   echo "$yml_dir/$file_to_check does not exist. Will create new from $template_file."
   cp "$template_file" "$file_to_check"
+  chmod 600 $file_to_check
 else
   echo "$yml_dir/$file_to_check exists. Using that!"
 fi
