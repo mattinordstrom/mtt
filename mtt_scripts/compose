@@ -4,6 +4,14 @@
 
 # docker-compose.yaml on Gist: https://gist.github.com/mattinordstrom/520993d3fbdd9209c389beadd90867af
 
+BLACK='\033[30m'
+GREEN='\033[32m'
+#RED='\033[31m'
+YELLOW_BG='\033[43m'
+YELLOW='\033[33m'
+BOLD='\033[1m'
+RESET='\033[0m'
+
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd $script_dir/../resources
 yml_dir="$(pwd)"
@@ -17,35 +25,27 @@ else
   echo "$yml_dir/$file_to_check exists. Using that!"
 fi
 
+echo " "
+
+echo -e "${BLACK}${YELLOW_BG}SERVICES${RESET}"
+echo -e "${BOLD}$(docker compose config --services | sort)${RESET}"
+echo " "
+echo -e "${BLACK}${YELLOW_BG}Running${RESET}"
+echo -e "${BOLD}${GREEN}$(docker compose ps --status=running --format '{{.Service}}' | sort)${RESET}"
+
 
 echo " "
 echo "----------------------------"
 echo " "
 
-echo "Services in yaml: "
-tput bold; tput setaf 6;
-docker compose config --services | sort
-tput sgr0;
 
-echo " "
-echo "Currently running: "
-tput bold; tput setaf 2;
-docker compose ps --format '{{.Service}}' | sort
-tput sgr0;
+echo -e "${BOLD}${YELLOW} Run one service:${RESET}    $ docker compose up -d web"
+echo -e "${BOLD}${YELLOW} Run all:${RESET}            $ docker compose up -d"
+echo -e " "
+echo -e "${BOLD}${YELLOW} Kill all:${RESET}           $ docker compose down"
+echo -e "${BOLD}${YELLOW} Remove container:${RESET}   $ docker rm /redis"
+echo -e " "
+echo -e "${BOLD}${YELLOW} List containers:${RESET}    $ docker compose ps"
+echo -e "${BOLD}${YELLOW} Show logs:${RESET}          $ docker compose logs web"
+echo -e "${BOLD}${YELLOW} Rebuild:${RESET}            $ docker compose up -d --no-deps --build web"
 
-echo " "
-echo "----------------------------"
-echo " "
-
-tput setaf 3
-echo "Run one service:    $ docker compose up web"
-echo "Run all (detached): $ docker compose up -d"
-echo " "
-echo "Kill all:           $ docker compose down"
-echo "Remove container:   $ docker rm /redis"
-echo " "
-echo "List containers:    $ docker compose ps"
-echo "Show logs:          $ docker compose logs web"
-echo "Rebuild:            $ docker compose up -d --no-deps --build web"
-
-tput sgr0;
