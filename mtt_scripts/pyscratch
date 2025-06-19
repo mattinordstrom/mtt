@@ -13,6 +13,6 @@ tstamp=`date +%Y-%m-%d-%H-%M-%S`
 
 mkdir -p ~/Desktop/py_scratches
 
-cp $mttPath/resources/SCRATCH_TEMPLATE.py ~/Desktop/py_scratches/scratch-$tstamp.py
+cp -r $mttPath/resources/SCRATCH_TEMPLATE_PY ~/Desktop/py_scratches/scratch-py-$tstamp
 
-code ~/Desktop/py_scratches/scratch-$tstamp.py
+code ~/Desktop/py_scratches/scratch-py-$tstamp
