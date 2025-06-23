@@ -38,7 +38,7 @@ scripts.append(scriptInfo('appinfo', 'SYSTEM', 'App info. How and where it is in
 scripts.append(scriptInfo('ls', 'SYSTEM', 'List files and directories.', ['dir'], True))
 
 scripts.append(scriptInfo('versions', 'DEV_TOOLS', 'Prints java, PHP, node, npm version info.', []))
-scripts.append(scriptInfo('timestamp', 'DEV_TOOLS', 'Converts timestamp (ms) or date string (\"yyyy-mm-dd hh:mm:ss\"). \nIf no arg is passed the current timestamp (now) is printed.', ['?string']))
+scripts.append(scriptInfo('timestamp', 'DEV_TOOLS', 'Converts timestamp (ms) or date string (\"yyyy-mm-dd hh:mm:ss\"). \nIf no arg is passed the current timestamp (now) is printed.', ['?string'], True))
 scripts.append(scriptInfo('convert', 'DEV_TOOLS', 'Converts xml/json from clipboard.', ['from_format', 'to_format'], True))
 scripts.append(scriptInfo('uuid', 'DEV_TOOLS', 'Generate random uuid v4.', []))
 scripts.append(scriptInfo('pyscratch', 'DEV_TOOLS', 'Creates python scratch file in ~/Desktop/py_scratches', [], True))
