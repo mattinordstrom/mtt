@@ -20,7 +20,11 @@ def normalize_to_milliseconds(ts):
     raise ValueError(f"Unrecognized timestamp format: {ts}")
 
 def datetime_to_unix_ms(dt_str):
-    dt = datetime.strptime(dt_str, '%Y-%m-%d %H:%M:%S')
+    if "." in dt_str:
+        dt = datetime.strptime(dt_str, '%Y-%m-%d %H:%M:%S.%f')
+    else:
+        dt = datetime.strptime(dt_str, '%Y-%m-%d %H:%M:%S')
+
     timestamp_s = dt.timestamp()
     return int(timestamp_s * 1000)
 
@@ -46,9 +50,8 @@ print(ts)
 print("\n")
 
 if input_is_unix_ts:
-    print(YELLOW + convert_unix_to_local_datetime(ts) + ENDC)
+    print(YELLOW + str(convert_unix_to_local_datetime(ts)) + ENDC)
 else:
-    # TODO handle ms in "2025-06-23 15:35:42.126"
-    print(YELLOW + datetime_to_unix_ms(ts) + ENDC)
+    print(YELLOW + str(datetime_to_unix_ms(ts)) + ENDC)
 
 
