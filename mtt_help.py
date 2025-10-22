@@ -37,7 +37,7 @@ scripts.append(scriptInfo('fileinfo', 'SYSTEM', 'Get details about a file.', ['f
 scripts.append(scriptInfo('appinfo', 'SYSTEM', 'App info. How and where it is installed.', ['appname']))
 scripts.append(scriptInfo('ls', 'SYSTEM', 'List files and directories.', ['dir'], True))
 
-scripts.append(scriptInfo('versions', 'DEV_TOOLS', 'Prints java, PHP, node, npm version info.', []))
+scripts.append(scriptInfo('versions', 'DEV_TOOLS', 'Prints java, PHP, node, npm version info.', [], True))
 scripts.append(scriptInfo('timestamp', 'DEV_TOOLS', 'Converts timestamp (ms) or date string (\"yyyy-mm-dd hh:mm:ss\"). \nIf no arg is passed the current timestamp (now) is printed.', ['?string'], True))
 scripts.append(scriptInfo('convert', 'DEV_TOOLS', 'Converts xml/json from clipboard.', ['from_format', 'to_format'], True))
 scripts.append(scriptInfo('uuid', 'DEV_TOOLS', 'Generate random uuid v4.', []))
