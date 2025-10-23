@@ -11,11 +11,9 @@ echo " "
 tput bold; tput setaf 6; echo "   "$currentDayName, $(date +%d) $(date +%B) $(date +'%Y (%H:%M:%S)'); tput sgr0; tput sgr0;
 currentWeek=$(date +%V)
 tput setaf 6; echo "   Current week: $currentWeek"; tput sgr0;
-
+echo " "
 
 # LAST WEEK
-echo " "
-tput setaf 7;
 weekOutput=''
 for i in ${!weekDaysArray[@]}; do
   dayOneIdx="$(($i + 1))"
@@ -27,13 +25,15 @@ for i in ${!weekDaysArray[@]}; do
     weekOutput=$weekOutput"  |"$currDay"|"$(date -d''"$currDay"'-2 weeks' +%Y-%m-%d)"\n"
   fi
 done
-weekOutput=$(echo -e $weekOutput) #interpret slash n as newline
-column -t -s "|" <<< $weekOutput #print week in column format
-echo "   --"
+weekOutput=$(echo -e "$weekOutput") #interpret slash n as newline
+column -t -s "|" <<< "$weekOutput" #print week in column format
+
+
+echo "   ------------------------"
 tput sgr0;
 
-
 # THIS WEEK
+tput setaf 7;
 weekOutput=''
 for i in ${!weekDaysArray[@]}; do
   dayOneIdx="$(($i + 1))"
@@ -41,7 +41,7 @@ for i in ${!weekDaysArray[@]}; do
 
   if [ "$dayOneIdx" -ge "$currentDayIdx" ]; then
     if [ "$dayOneIdx" -eq "$currentDayIdx" ]; then
-      weekOutput=$weekOutput"  |"$currDay"|"$(date -d-$currDay +%Y-%m-%d)"|<-\n"
+      weekOutput=$weekOutput"  |"$currDay"|"$(date -d-$currDay +%Y-%m-%d)"|<---\n"
     else
       weekOutput=$weekOutput"  |"$currDay"|"$(date -d-$currDay +%Y-%m-%d)"\n"
     fi
@@ -49,9 +49,26 @@ for i in ${!weekDaysArray[@]}; do
     weekOutput=$weekOutput"  |"$currDay"|"$(date -dlast-$currDay +%Y-%m-%d)"\n"
   fi
 done
-weekOutput=$(echo -e $weekOutput) #interpret slash n as newline
-column -t -s "|" <<< $weekOutput #print week in column format
+weekOutput=$(echo -e "$weekOutput") #interpret slash n as newline
+column -t -s "|" <<< "$weekOutput" #print week in column format
 
+echo "   ------------------------"
+tput sgr0;
+
+# NEXT WEEK
+weekOutput=''
+# Determine Monday of current week, then add 7 days to get Monday of next week.
+# currentDayIdx: 1 (Mon) .. 7 (Sun)
+daysFromMonday=$((currentDayIdx - 1))
+nextWeekMonday=$(date -d "-$daysFromMonday days +7 days" +%Y-%m-%d)
+
+for i in ${!weekDaysArray[@]}; do
+  currDay=${weekDaysArray[$i]}
+  dayDate=$(date -d "$nextWeekMonday +$i days" +%Y-%m-%d)
+  weekOutput+="  |$currDay|$dayDate\n"
+done
+weekOutput=$(echo -e "$weekOutput") #interpret slash n as newline
+column -t -s "|" <<< "$weekOutput" # print week in column format
 
 echo " "
 tput setaf 3; echo "-------------------------------------------------------"; tput sgr0;
