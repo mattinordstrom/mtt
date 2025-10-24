@@ -13,6 +13,14 @@ showAll = len(sys.argv) < 2
 
 print(' ')
 
+if showAll or sys.argv[1] == 'bruno':
+  print(YELLOW+'________Bruno________'+ENDC)
+  print(' Search:                   ' + BOLD+'Ctrl + K'+ENDC)
+  print(' New request:              ' + BOLD+'Ctrl + B'+ENDC)
+  print(' Edit env:                 ' + BOLD+'Ctrl + E'+ENDC)
+  print(' ')
+  print(' ')
+
 if showAll or sys.argv[1] == 'dbeaver':
   print(YELLOW+'________DBeaver________'+ENDC)
   print(' New console:              ' + BOLD+'Ctrl + Alt + Enter'+ENDC)
@@ -24,7 +32,7 @@ if showAll or sys.argv[1] == 'dbeaver':
   print(' ')
 
 if showAll or sys.argv[1] == 'intellij':
-  print(YELLOW+'________IntelliJ________'+ENDC)
+  print(YELLOW+'_______IntelliJ_______'+ENDC)
   print(' File switcher:            ' + BOLD+'Ctrl + Tab'+ENDC)
   print(' Toggle bookmark on row:   ' + BOLD+'F11'+ENDC)
   print(' Show bookmarks:           ' + BOLD+'Shift + F11'+ENDC)
@@ -33,15 +41,6 @@ if showAll or sys.argv[1] == 'intellij':
   print(' Find action...:           ' + BOLD+'Ctrl + Shift + A'+ENDC)
   print(' Comment lines:            ' + BOLD+'Ctrl + /'+ENDC)
   print(' ')
-  print(' ')
-
-if showAll or sys.argv[1] == 'mullvad':
-  print(YELLOW+'________Mullvad VPN________'+ENDC)
-  print(' Account info:    ' + BOLD+'mullvad account get'+ENDC)
-  print(' Account devices: ' + BOLD+'mullvad account list-devices'+ENDC)
-  print(' Show status:     ' + BOLD+'mullvad status -v'+ENDC)
-  print(' Connect:         ' + BOLD+'mullvad connect'+ENDC)
-  print(' Disconnect:      ' + BOLD+'mullvad disconnect'+ENDC)
   print(' ')
 
 if showAll or sys.argv[1] == 'nano':
@@ -58,10 +57,11 @@ if showAll or sys.argv[1] == 'nano':
   print(' ')
 
 if showAll or sys.argv[1] == 'terminator':
-  print(YELLOW+'________Terminator________'+ENDC)
-  print(' Switch tabs:  ' + BOLD+'Ctrl + PageUp/PageDown'+ENDC)
-  print(' Focus win:    ' + BOLD+'Alt + Arrow key'+ENDC)
-  print(' New win:      ' + BOLD+'Ctrl + Shift + I'+ENDC)
+  print(YELLOW+'______Terminator______'+ENDC)
+  print(' Switch tabs:              ' + BOLD+'Ctrl + PageUp/PageDown'+ENDC)
+  print(' Focus win:                ' + BOLD+'Alt + Arrow key'+ENDC)
+  print(' New win:                  ' + BOLD+'Ctrl + Shift + I'+ENDC)
+  print(' ')
   print(' ')
 
 if showAll or sys.argv[1] == 'ubuntu':
@@ -72,7 +72,7 @@ if showAll or sys.argv[1] == 'ubuntu':
   print(' ')
 
 if showAll or sys.argv[1] == 'vscode':
-  print(YELLOW+'________Visual Studio Code________'+ENDC)
+  print(YELLOW+'_______VS Code_______'+ENDC)
   print(' File switcher:            ' + BOLD+'Ctrl + Tab'+ENDC)
   print(' Go to file:               ' + BOLD+'Ctrl + P'+ENDC)
   print(' Run command:              ' + BOLD+'Ctrl + Shift + P'+ENDC)
