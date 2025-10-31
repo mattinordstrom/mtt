@@ -29,6 +29,7 @@ scripts.append(scriptInfo('replacecc', 'STRINGS', 'Replaces given string with a 
 scripts.append(scriptInfo('replaceccb', 'STRINGS', 'Replaces string between two strings in clipboard content. \nI.e <\"I have\"> <\"bananas\"> <\"99\">. I have 99 bananas', ['before', 'after', 'string']))
 scripts.append(scriptInfo('base64', 'STRINGS', 'Encode/decode a base64 string.', ['string']))
 scripts.append(scriptInfo('findjunk', 'STRINGS', 'Find junk signs in string.', ['string'], True))
+scripts.append(scriptInfo('oneline', 'STRINGS', 'Replaces newlines in text to create one line', ['string'], True))
 
 scripts.append(scriptInfo('portuse', 'SYSTEM', 'Display which process is using a specific port.', ['port']))
 scripts.append(scriptInfo('topcpu', 'SYSTEM', 'Displays top CPU usage.', []))
