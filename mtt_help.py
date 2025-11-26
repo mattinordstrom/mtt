@@ -15,12 +15,11 @@ scriptCategories = {'STRINGS': 'String handling',
                     'MISC': 'Misc'}
 
 class scriptInfo: 
-    def __init__(self, name, category, description, params, isPython=False):
+    def __init__(self, name, category, description, params):
         self.name = name
         self.category = category
         self.description = description
         self.params = params
-        self.isPython = isPython
 
 scripts = [] 
 scripts.append(scriptInfo('toc', 'STRINGS', 'To clipboard. Read file content or echo into clipboard.', ['?filepath']))
@@ -28,31 +27,31 @@ scripts.append(scriptInfo('fromc', 'STRINGS', 'From clipboard. Outputs clipboard
 scripts.append(scriptInfo('replacecc', 'STRINGS', 'Replaces given string with a new string in clipboard content.', ['find', 'new_string']))
 scripts.append(scriptInfo('replaceccb', 'STRINGS', 'Replaces string between two strings in clipboard content. \nI.e <\"I have\"> <\"bananas\"> <\"99\">. I have 99 bananas', ['before', 'after', 'string']))
 scripts.append(scriptInfo('base64', 'STRINGS', 'Encode/decode a base64 string.', ['string']))
-scripts.append(scriptInfo('findjunk', 'STRINGS', 'Find junk signs in string.', ['string'], True))
-scripts.append(scriptInfo('oneline', 'STRINGS', 'Replaces newlines in text to create one line', ['string'], True))
+scripts.append(scriptInfo('findjunk', 'STRINGS', 'Find junk signs in string.', ['string']))
+scripts.append(scriptInfo('oneline', 'STRINGS', 'Replaces newlines in text to create one line', ['string']))
 
 scripts.append(scriptInfo('portuse', 'SYSTEM', 'Display which process is using a specific port.', ['port']))
 scripts.append(scriptInfo('topcpu', 'SYSTEM', 'Displays top CPU usage.', []))
 scripts.append(scriptInfo('topmem', 'SYSTEM', 'Displays top MEM usage.', []))
 scripts.append(scriptInfo('fileinfo', 'SYSTEM', 'Get details about a file.', ['filepath']))
 scripts.append(scriptInfo('appinfo', 'SYSTEM', 'App info. How and where it is installed.', ['appname']))
-scripts.append(scriptInfo('ls', 'SYSTEM', 'List files and directories.', ['dir'], True))
+scripts.append(scriptInfo('ls', 'SYSTEM', 'List files and directories.', ['dir']))
 
-scripts.append(scriptInfo('versions', 'DEV_TOOLS', 'Prints java, PHP, node, npm version info.', [], True))
-scripts.append(scriptInfo('timestamp', 'DEV_TOOLS', 'Converts timestamp (ms) or date string (\"yyyy-mm-dd hh:mm:ss\"). \nIf no arg is passed the current timestamp (now) is printed.', ['?string'], True))
-scripts.append(scriptInfo('convert', 'DEV_TOOLS', 'Converts xml/json from clipboard.', ['from_format', 'to_format'], True))
-scripts.append(scriptInfo('uuid', 'DEV_TOOLS', 'Generate random uuid v4.', []))
-scripts.append(scriptInfo('pyscratch', 'DEV_TOOLS', 'Creates python scratch file in ~/Desktop/py_scratches', [], True))
-scripts.append(scriptInfo('goscratch', 'DEV_TOOLS', 'Creates golang scratch file in ~/Desktop/go_scratches', [], True))
+scripts.append(scriptInfo('versions', 'DEV_TOOLS', 'Prints java, PHP, node, npm version info.', []))
+scripts.append(scriptInfo('timestamp', 'DEV_TOOLS', 'Converts timestamp (ms) or date string (\"yyyy-mm-dd hh:mm:ss\"). \nIf no arg is passed the current timestamp (now) is printed.', ['?string']))
+scripts.append(scriptInfo('convert', 'DEV_TOOLS', 'Converts xml/json from clipboard.', ['from_format', 'to_format']))
+scripts.append(scriptInfo('uuidgen', 'DEV_TOOLS', 'Generate random uuid or ulid.', ['?-ulid']))
+scripts.append(scriptInfo('pyscratch', 'DEV_TOOLS', 'Creates python scratch file in ~/Desktop/py_scratches', []))
+scripts.append(scriptInfo('goscratch', 'DEV_TOOLS', 'Creates golang scratch file in ~/Desktop/go_scratches', []))
 scripts.append(scriptInfo('compose', 'DEV_TOOLS', 'Docker compose template.', []))
 
 scripts.append(scriptInfo('cat', 'MISC', 'List mtt scripts dir. Or outputs a scripts content.', ['?scriptname']))
 scripts.append(scriptInfo('extract', 'MISC', 'Extract compressed file. (tar, 7z, zip...)', ['filepath']))
-scripts.append(scriptInfo('shorts', 'MISC', 'List of keyboard shortcuts for different applications.', ['?application'], True))
-scripts.append(scriptInfo('howto', 'MISC', 'Mixed howtos.', ['?application'], True))
+scripts.append(scriptInfo('shorts', 'MISC', 'List of keyboard shortcuts for different applications.', ['?application']))
+scripts.append(scriptInfo('howto', 'MISC', 'Mixed howtos.', ['?application']))
 scripts.append(scriptInfo('week', 'MISC', 'Output current week info. Date, day, week number etc.', []))
 scripts.append(scriptInfo('countdown', 'MISC', 'Countdown.', ['minutes']))
-scripts.append(scriptInfo('hist', 'MISC', 'Copy command from history.', ['filter'], True))
+scripts.append(scriptInfo('hist', 'MISC', 'Copy command from history.', ['filter']))
 scripts.append(scriptInfo('s', 'MISC', 'OS / Hardware status', []))
 
 print('\n')

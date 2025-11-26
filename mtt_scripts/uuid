@@ -1,8 +1,0 @@
-#!/bin/bash
-
-result=$(uuidgen)
-echo " ";
-echo $result;
-
-echo -n $result | mtt toc
-tput setaf 6; echo "Copied to clipboard!"; tput sgr0;
