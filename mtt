@@ -14,7 +14,8 @@ if test -f "$FILE"; then
 elif test -f "$FILE.py"; then
     "$SCRIPT_DIR/.mtt_venv/bin/python3" "$FILE.py" "${@:2}"
 elif test -f "$FILE/main.go"; then
-    go run "$FILE/main.go" "${@:2}"
+    #echo "$FILE/."
+    go run "$FILE/." "${@:2}"
 else
     echo "Invalid. Use mtt h to see available commands"
 fi

@@ -1,8 +1,10 @@
 package main
 
-// go mod init uuidgengo
+// go mod init uuidgen
 // go get github.com/google/uuid
-// go build -o uuidgengo
+// go build -o uuidgen
+
+// Add to ../go.work
 
 import (
 	"flag"
