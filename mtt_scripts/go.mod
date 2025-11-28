@@ -1,4 +1,4 @@
-module uuidgen
+module mttgo
 
 go 1.25.4
 

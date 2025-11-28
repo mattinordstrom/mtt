@@ -1,11 +1,5 @@
 package main
 
-// go mod init uuidgen
-// go get github.com/google/uuid
-// go build -o uuidgen
-
-// Add to ../go.work
-
 import (
 	"flag"
 	"fmt"
