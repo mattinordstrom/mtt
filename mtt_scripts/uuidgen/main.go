@@ -3,12 +3,13 @@ package main
 import (
 	"flag"
 	"fmt"
-
 	"math/rand"
+	"os"
 	"time"
 
 	"github.com/google/uuid"
 	"github.com/oklog/ulid/v2"
+	"golang.design/x/clipboard"
 )
 
 const LightBlue = "\x1b[96m"
@@ -28,6 +29,18 @@ func main() {
 	} else {
 		id = uuid.New().String()
 	}
+
+	if err := clipboard.Init(); err != nil {
+		fmt.Fprintf(os.Stderr, "ERROR: failed to initialize clipboard: %v\n", err)
+		os.Exit(1)
+	}
+	clipboard.Write(clipboard.FmtText, []byte(id))
+
+	// Need a short sleep here to ensure clipboard is updated (TODO use wl-copy instead on Wayland?)
+	time.Sleep(300 * time.Millisecond)
+
+	//got := clipboard.Read(clipboard.FmtText)
+	//fmt.Fprintf(os.Stderr, "DEBUG: clipboard now has: %s\n", string(got))
 
 	fmt.Println(string(LightBlue) + id + string(Reset))
 }
