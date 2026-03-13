@@ -9,6 +9,10 @@ export PATH=$PATH:$HOME/mtt
   
 ### python venv setup 
 ```sh
+pyenv local 3.14
+```
+
+```sh
 python3 -m venv .mtt_venv
 ```
 
