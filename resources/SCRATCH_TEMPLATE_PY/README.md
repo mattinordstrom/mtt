@@ -4,11 +4,15 @@
 
 Create a virtual env:
 
-    python3 -m venv .venv
+    pyenv local 3.14
+
+then
+
+    python3 -m venv .mtt_venv
 
 Activate it:
 
-    source .venv/bin/activate
+    source .mtt_venv/bin/activate
 
 Install requirements:
 
