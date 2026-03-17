@@ -43,6 +43,16 @@ if showAll or sys.argv[1] == 'intellij':
   print(' ')
   print(' ')
 
+if showAll or sys.argv[1] == 'kitty':
+  print(YELLOW+'_______Kitty_______'+ENDC)
+  print(' Split pane vertically:    ' + BOLD+'Ctrl + Shift + Enter'+ENDC)
+  print(' Split pane horizontally:  ' + BOLD+'Ctrl + Shift + o'+ENDC)
+  print(' Focus pane:               ' + BOLD+'Alt + <arrow>'+ENDC)
+  print(' Switch tab:               ' + BOLD+'Ctrl + Shift + <arrow>'+ENDC)
+  print(' Search word:              ' + BOLD+'Ctrl + Shift + h (then /search_word)'+ENDC)
+  print(' ')
+  print(' ')
+
 if showAll or sys.argv[1] == 'nano':
   print(YELLOW+'________Nano________'+ENDC)
   print(' Cut:                      ' + BOLD+'Ctrl + K'+ENDC)
