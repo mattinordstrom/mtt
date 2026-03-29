@@ -91,7 +91,31 @@ def list_kitty_fonts():
         print("WARNING: kitty not found, cannot list fonts")
 
 
+def install_kitty():
+    print("Installing kitty...")
+    subprocess.run(
+        "curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin",
+        shell=True,
+        check=True,
+    )
+    print("kitty installed successfully.")
+
+
+def install_starship():
+    print("Installing Starship...")
+    subprocess.run(
+        "curl -sS https://starship.rs/install.sh | sh -s -- -y",
+        shell=True,
+        check=True,
+    )
+    print("Starship installed successfully.")
+
+
 def main():
+    install_kitty()
+    install_starship()
+    print()
+
     gists_dir = find_gists_dir()
     if gists_dir:
         print(f"Found gists directory: {gists_dir}")
@@ -105,7 +129,7 @@ def main():
     else:
         install_nerd_font()
 
-    list_kitty_fonts()
+    #list_kitty_fonts()
 
 
 main()
