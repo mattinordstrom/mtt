@@ -52,6 +52,7 @@ scripts.append(scriptInfo('howto', 'MISC', 'Mixed howtos.', ['?application']))
 scripts.append(scriptInfo('week', 'MISC', 'Output current week info. Date, day, week number etc.', []))
 scripts.append(scriptInfo('countdown', 'MISC', 'Countdown.', ['minutes']))
 scripts.append(scriptInfo('hist', 'MISC', 'Copy command from history.', ['filter']))
+scripts.append(scriptInfo('kittysetup', 'MISC', 'Setup kitty terminal with starship and Nerd font.', []))
 scripts.append(scriptInfo('s', 'MISC', 'OS / Hardware status', []))
 
 print('\n')
