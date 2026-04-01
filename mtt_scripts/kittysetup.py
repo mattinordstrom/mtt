@@ -1,3 +1,4 @@
+import json
 import os
 import shutil
 import subprocess
@@ -12,6 +13,30 @@ KITTY_CONFIG_DIR = os.path.join(CONFIG_DIR, "kitty")
 
 FONT_DOWNLOAD_URL = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.zip"
 FONTS_DIR = os.path.join(HOME, ".local", "share", "fonts")
+
+
+def get_latest_github_version(owner, repo):
+    url = f"https://api.github.com/repos/{owner}/{repo}/releases/latest"
+    req = urllib.request.Request(url, headers={"Accept": "application/vnd.github+json"})
+    with urllib.request.urlopen(req) as resp:
+        data = json.loads(resp.read().decode())
+    return data["tag_name"].lstrip("v")
+
+
+def get_installed_kitty_version():
+    try:
+        out = subprocess.check_output(["kitty", "--version"], text=True, stderr=subprocess.DEVNULL)
+        return out.split()[1]
+    except (FileNotFoundError, IndexError):
+        return None
+
+
+def get_installed_starship_version():
+    try:
+        out = subprocess.check_output(["starship", "--version"], text=True, stderr=subprocess.DEVNULL)
+        return out.splitlines()[0].split()[1]
+    except (FileNotFoundError, IndexError):
+        return None
 
 
 def find_gists_dir():
@@ -92,23 +117,45 @@ def list_kitty_fonts():
 
 
 def install_kitty():
+    current = get_installed_kitty_version()
+    latest = get_latest_github_version("kovidgoyal", "kitty")
+
+    if current and current == latest:
+        print(f"Kitty already latest version {current}")
+        return
+
     print("Installing kitty...")
     subprocess.run(
         "curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin",
         shell=True,
         check=True,
     )
-    print("kitty installed successfully.")
+
+    if current:
+        print(f"Updated kitty from version {current} to {latest}")
+    else:
+        print("kitty installed successfully.")
 
 
 def install_starship():
+    current = get_installed_starship_version()
+    latest = get_latest_github_version("starship", "starship")
+
+    if current and current == latest:
+        print(f"Starship already latest version {current}")
+        return
+
     print("Installing Starship...")
     subprocess.run(
         "curl -sS https://starship.rs/install.sh | sh -s -- -y",
         shell=True,
         check=True,
     )
-    print("Starship installed successfully.")
+
+    if current:
+        print(f"Updated starship from version {current} to {latest}")
+    else:
+        print("Starship installed successfully.")
 
 
 def main():
@@ -117,11 +164,11 @@ def main():
     print()
 
     gists_dir = find_gists_dir()
-    if gists_dir:
-        print(f"Found gists directory: {gists_dir}")
-        copy_configs(gists_dir)
-    else:
-        print("WARNING: No gists directory found, skipping config copy")
+    if not gists_dir:
+        print("\033[91mERROR: No gists directory found\033[0m")
+        sys.exit(1)
+    print(f"Found gists directory: {gists_dir}")
+    copy_configs(gists_dir)
 
     print()
     if has_nerd_font():
