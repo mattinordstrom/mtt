@@ -1,10 +1,18 @@
 #!/bin/bash
 
 
-if [ $# -eq 0 ] || [ -z "$1" ]; then
-  printf "No string specified. Usage: mtt base64 <string>"
-else
+if [ $# -gt 0 ] && [ -n "$1" ]; then
   input=$1
+elif [ ! -t 0 ]; then
+  input=$(cat)
+else
+  printf "No string specified. Usage: mtt base64 <string>"
+  echo " "
+  exit 1
+fi
+
+{
+  input=${input%$'\n'}
   echo $input
   echo " "
 
@@ -29,7 +37,7 @@ else
   done
   tput setaf 6; printf "ENCODED: \n"; tput sgr0;
   echo -n "$input" | base64 -w 0
-fi
+}
 
 echo " "
 
