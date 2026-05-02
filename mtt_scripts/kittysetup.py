@@ -49,6 +49,29 @@ def find_gists_dir():
     return None
 
 
+def prepare_gists_repo(gists_dir):
+    """Ensure gists repo is on main branch, clean, and up to date."""
+    branch = subprocess.check_output(
+        ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+        cwd=gists_dir, text=True
+    ).strip()
+    if branch != "main":
+        print(f"\033[91mERROR: gists repo is on branch '{branch}', expected 'main'\033[0m")
+        sys.exit(1)
+
+    status = subprocess.check_output(
+        ["git", "status", "--porcelain"],
+        cwd=gists_dir, text=True
+    ).strip()
+    if status:
+        print(f"\033[91mERROR: gists repo has uncommitted changes:\033[0m")
+        print(status)
+        sys.exit(1)
+
+    print("Pulling latest changes in gists repo...")
+    subprocess.run(["git", "pull"], cwd=gists_dir, check=True)
+
+
 def copy_configs(gists_dir):
     starship_src = os.path.join(gists_dir, "starship.toml")
     kitty_conf_src = os.path.join(gists_dir, "kitty", "kitty.conf")
@@ -168,6 +191,7 @@ def main():
         print("\033[91mERROR: No gists directory found\033[0m")
         sys.exit(1)
     print(f"Found gists directory: {gists_dir}")
+    prepare_gists_repo(gists_dir)
     copy_configs(gists_dir)
 
     print()
