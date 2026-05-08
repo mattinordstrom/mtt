@@ -22,8 +22,6 @@ def get_version(cmd: Sequence[str]) -> str:
 
     return result, which
 
-nodew = subprocess.check_output(["which", "node"], text=True)
-
 phpv,phpw = get_version(["php", "-r", "echo rtrim(phpversion());"])
 nodev,nodew = get_version(["node", "-v"])
 npmv,npmw = get_version(["npm", "-v"])

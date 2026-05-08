@@ -1,14 +1,44 @@
 #!/bin/bash
 
-fileName=$1
-outputDir="${fileName%.*}"
-
-if [ "${fileName:(-3)}" == "zip" ]; then
-    unzip "$fileName" -d "$outputDir"
-elif [ "${fileName:(-3)}" == "tar" ] || [ "${fileName:(-6)}" == "tar.gz" ] || [ "${fileName:(-6)}" == "tar.xz" ]; then
-    tar -xf "$fileName" --one-top-level
-else
-    7z x "$fileName" -o"$outputDir"
+if [ -z "$1" ]; then
+  printf "No file specified. Usage: mtt extract <filepath>\n"
+  exit 1
 fi
 
+fileName="$1"
 
+if [ ! -f "$fileName" ]; then
+  printf "File not found: %s\n" "$fileName"
+  exit 1
+fi
+
+lower="${fileName,,}"
+
+case "$lower" in
+  *.zip)
+    outputDir="${fileName%.*}"
+    unzip "$fileName" -d "$outputDir"
+    ;;
+  *.tar|*.tar.gz|*.tgz|*.tar.xz|*.txz|*.tar.bz2|*.tbz2|*.tar.zst)
+    tar -xf "$fileName" --one-top-level
+    ;;
+  *.7z|*.rar)
+    outputDir="${fileName%.*}"
+    7z x "$fileName" -o"$outputDir"
+    ;;
+  *.gz)
+    gunzip -k "$fileName"
+    ;;
+  *.xz)
+    unxz -k "$fileName"
+    ;;
+  *.bz2)
+    bunzip2 -k "$fileName"
+    ;;
+  *)
+    printf "Unsupported file type: %s\n" "$fileName"
+    printf "Trying 7z as fallback...\n"
+    outputDir="${fileName%.*}"
+    7z x "$fileName" -o"$outputDir"
+    ;;
+esac

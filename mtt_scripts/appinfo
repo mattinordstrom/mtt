@@ -1,32 +1,31 @@
 #!/bin/bash
 
 if [ -z "$1" ]; then
-  printf "ERROR Empty app name. Use: mtt appinfo <appname>"
+  printf "ERROR Empty app name. Use: mtt appinfo <appname>\n"
   exit
 fi
 
-whichRes=$(which $1)
-aptRes=$(apt list --installed 2>/dev/null | grep -i $1)
-snapRes=$(snap list | grep -i $1)
+whichRes=$(which "$1")
+aptRes=$(apt list --installed 2>/dev/null | grep -i -- "$1")
+snapRes=$(snap list | grep -i -- "$1")
 
 printf "\n"
 
 if [ -z "$whichRes" ]; then
-  printf "WARNING \"$1\" is probably not the exact app name! \n\n"
+  printf 'WARNING "%s" is probably not the exact app name!\n\n' "$1"
 fi
 
 if [ -z "$snapRes" ]; then
   if [ -z "$aptRes" ]; then
     printf "Application not installed with apt or snap."
   else
-    printf "::APT PACKAGE:: \n"
-    printf "$aptRes"
+    printf "::APT PACKAGE::\n"
+    printf "%s" "$aptRes"
   fi
 else
-  printf "::SNAP PACKAGE:: \n"
-  printf "$snapRes"
+  printf "::SNAP PACKAGE::\n"
+  printf "%s" "$snapRes"
 fi
 
 printf "\n\n"
-printf "which $1--> $whichRes"
-
+printf "which %s --> %s" "$1" "$whichRes"

@@ -1,21 +1,13 @@
 #!/bin/bash
 
-IN=$PATH
-arrIN=(${IN//:/ })
-mttPath="" 
-for i in "${arrIN[@]}"; do
-  if [[ $i == *"mtt"* ]]; then
-    mttPath="$i"
-  fi
-done
+mttPath="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 if [ -z "$1" ]; then
-  printf $mttPath"\n"
-  printf "\n"
-  ls -la $mttPath"/mtt_scripts"
+  printf "%s\n\n" "$mttPath"
+  ls -la "$mttPath/mtt_scripts"
   exit
 fi
 
 echo " "
-tput setaf 7; cat $mttPath"/mtt_scripts/"$1; tput sgr0;
+tput setaf 7; cat "$mttPath/mtt_scripts/$1"; tput sgr0;
 echo " "

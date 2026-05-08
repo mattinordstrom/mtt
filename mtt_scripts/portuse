@@ -1,12 +1,24 @@
 #!/bin/bash
 
 if [ $# -eq 0 ] || [ -z "$1" ]; then
-  printf "No port specified. Usage: mtt portuse <port>"
-else
-  netstat -aln -p tcp | grep -w $1
-  printf "  \n"
-  printf "To print process name, run ps aux | grep <PID>"
-  printf "  \n"
+  printf "No port specified. Usage: mtt portuse <port>\n"
+  exit
 fi
 
+ss_output=$(ss -ltnp | awk -v port=":$1" '$4 ~ port"$"')
 
+if [ -z "$ss_output" ]; then
+  printf "No process is listening on port %s\n" "$1"
+  exit
+fi
+
+printf "%s\n\n" "$ss_output"
+
+pid=$(echo "$ss_output" | grep -oP 'pid=\K[0-9]+' | head -n 1)
+
+if [ -n "$pid" ]; then
+  printf "Process info (PID %s):\n" "$pid"
+  ps -p "$pid" -o pid,user,cmd
+else
+  printf "Could not extract PID (try running with sudo).\n"
+fi

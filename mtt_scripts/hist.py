@@ -33,7 +33,7 @@ def read_last_lines(file_path, filter, num_lines=300):
           timestamp = clean_line[clean_line.find(': ') + 2 : clean_line.find(':', 5)]
           clean_line = clean_line[clean_line.find(';') + 1:]
 
-          if clean_line != '' and filter in line and not clean_line.startswith("history") and not clean_line.startswith("mtt hist"):
+          if clean_line != '' and filter in clean_line and not clean_line.startswith("history") and not clean_line.startswith("mtt hist"):
             clean_lines.append([clean_line, timestamp])
 
         # Return the last 300 lines of result
@@ -68,12 +68,16 @@ def main():
 
 
   user_input = input("\nSelect a command to copy (enter 0 to exit): ")
-  choice = int(user_input)
+  try:
+    choice = int(user_input)
+  except ValueError:
+    print("Invalid input!")
+    sys.exit()
 
   if choice == 0:
     print("EXIT")
     sys.exit()
-  elif choice > len(output_array):
+  elif choice < 1 or choice > len(output_array):
     print("Invalid input!")
     sys.exit()
 
