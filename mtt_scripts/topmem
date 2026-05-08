@@ -1,3 +1,0 @@
-#!/bin/bash
-
-top -b -n 5 -o %MEM | head -n 15

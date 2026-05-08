@@ -1,3 +1,0 @@
-#!/bin/bash
-
-xclip -selection clipboard -o | sed "s/$1/$2/g"

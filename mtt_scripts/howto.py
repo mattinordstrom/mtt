@@ -6,180 +6,134 @@ BOLD = '\033[1m'
 YELLOW = '\033[93m'
 ENDC = '\033[0m'
 
-showMenu = len(sys.argv) < 2
 
-print(' ')
-
-if showMenu:
-  print(BOLD+'Show all: mtt howto --showall'+ENDC)
-  print(' ')
-  print(YELLOW+'Use one of the following args:'+ENDC)
-  print(' ')
-  print('  find')
-  print(' ')
-  print('  git')
-  print(' ')
-  print('  grep')
-  print(' ')
-  print('  net')
-  print(' ')
-  print('  output')
-  print(' ')
-  print('  regex')
-  print(' ')
-  print('  sed')
-  print(' ')
-  print('  sort')
-  print(' ')
-  print('  stat')
-  print(' ')
-  print('  xargs')
-  print(' ')
-  exit()
-
-showAll = (sys.argv[1] == '--showall')
+def header(title):
+    print(f"{YELLOW}________{title}________{ENDC}")
+    print()
 
 
-if showAll or sys.argv[1] == 'find':
-  print(YELLOW+'________FIND________'+ENDC)
-  print(' ')
-  print(" Find all occurances of \"ENDC\" in files in mtt folder:")
-  print( BOLD+" grep -i -Hr \"ENDC\" ~/projects_priv/mtt "+ENDC)
-  print(' ')
-  print(' ')
-  print(' Find all occurances of "FullScreen" in xml files (including hidden) in projects folder:')
-  print( BOLD+' sudo grep -Hr --include \\*.xml \"FullScreen\" ~/projects '+ENDC)
-  print(' ')
-  print('------------------------')
-  print(' ')
-  print(" Find files starting with \"convert\":")
-  print( BOLD+" find ~/projects_priv -type f -iname \"convert*\"  "+ENDC)
-  print(' ')
-  print(" Find in current folder:")
-  print( BOLD+' find -type f -iname "convert*" '+ENDC)
-  print(' ')
-  print(" Case sensitive:")
-  print( BOLD+' find -type f -name "convert*" '+ENDC)
-  print(' ')
-  print(" Include folders in search:")
-  print( BOLD+' find ~/projects_priv -iname "convert*" '+ENDC)
-  print(' ')
+def example(desc, *cmds):
+    print(f" {desc}:")
+    for cmd in cmds:
+        print(f"{BOLD} {cmd}{ENDC}")
+    print()
 
-if showAll or sys.argv[1] == 'git':
-  print(YELLOW+'________GIT________'+ENDC)
-  print(' ')
-  print(" Merge master into feature branch:")
-  print( BOLD+" git checkout feature/PROJ-1234 "+ENDC)
-  print( BOLD+" git pull origin master "+ENDC)
-  print( BOLD+" (Fix merge conflict...) "+ENDC)
-  print( BOLD+" git commit "+ENDC)
-  print( BOLD+" git push origin HEAD "+ENDC)
-  print(' ')
-  print(" Show stash list:")
-  print( BOLD+" git stash list | head "+ENDC)
-  print(' ')
-  print(" Show changed files in a stash:")
-  print( BOLD+" git stash show 2 | cat "+ENDC)
-  print(' ')
-  print('------------------------')
-  print(' ')
-  print(" List all branches that would be pruned:")
-  print( BOLD+" git remote prune origin --dry-run"+ENDC)
-  print(' ')
-  print(" Prune the branches (delete ref to dead remote br):")
-  print( BOLD+" git remote prune origin"+ENDC)
-  print(' ')
-  print(" Grep all merged branches (except develop and release branches):")
-  print( BOLD+" git br --merged develop | grep -E 'conflict/|bugfix/|feature/'"+ENDC)
-  print(' ')
-  print(" Remove the local branches:")
-  print( BOLD+" git br --merged develop | grep -E 'conflict/|bugfix/|feature/' | xargs -I {} git br -d {}"+ENDC)
-  print(' ')
-  print('------------------------')
-  print(' ')
-  print(" Show log of current branch commits:")
-  print( BOLD+" git log --pretty=oneline --since=\"3 years ago\" | grep PROJ-1234"+ENDC)
-  print(' ')
-  print(" Changes from other branch without commiting:")
-  print( BOLD+" git log --pretty=format:'%H' --no-merges --reverse $(git merge-base master feature/PROJ-1234)..feature/PROJ-1234 | tr '\\n' ' '"+ENDC)
-  print( BOLD+" git cherry-pick --no-commit <commit1> <commit2> <...>"+ENDC)
-  print(' ')
 
-if showAll or sys.argv[1] == 'grep':
-  print(YELLOW+'________GREP________'+ENDC)
-  print(' ')
-  print(" List all ids that exists in both csv:")
-  print( BOLD+" fgrep -wx -f listOfIds1.csv listOfIds2.csv >idsThatExistsInBothLists.csv "+ENDC)
-  print(' ')
-  print(" Remove ids from idsThatExistsInBothLists that are present in listOfIds3:")
-  print( BOLD+" fgrep -wx -v -f listOfIds3.csv idsThatExistsInBothLists.csv >finalresult.csv "+ENDC)
-  print(' ')
+def divider():
+    print('------------------------')
+    print()
 
-if showAll or sys.argv[1] == 'net':
-  print(YELLOW+'________NET________'+ENDC)
-  print(' ')
-  print(" Print network device info:")
-  print( BOLD+" ip addr | grep -A 999 -B 999 -E 'state UP|wlp|enx|10\\.' "+ENDC)
-  print(' ')
-  print(" Scan network devices with nmap:")
-  print( BOLD+" sudo nmap -sn 192.168.50.1/24"+ENDC)
-  print(' ')
 
-if showAll or sys.argv[1] == 'output':
-  print(YELLOW+'________OUTPUT________'+ENDC)
-  print(' ')
-  print(" Print last lines of file out.txt every 3 seconds:")
-  print( BOLD+" watch -n 3 tail out.txt "+ENDC)
-  print(' ')
-  print(" Print list with grep every 3 seconds:")
-  print( BOLD+" watch -n 3 'ls -lAh | grep test123' "+ENDC)
-  print(' ')
-  print(" Print terminal output to file:")
-  print( BOLD+' npm run dev 2>&1 | tee ~/Desktop/npm_run_output.txt'+ENDC)
-  print(' ')
+def show_search():
+    header('FIND')
+    example('Find all occurances of "ENDC" in files in mtt folder',
+            'grep -i -Hr "ENDC" ~/projects_priv/mtt')
+    example('Find all occurances of "FullScreen" in xml files (including hidden) in projects folder',
+            'sudo grep -Hr --include \\*.xml "FullScreen" ~/projects')
+    divider()
+    example('Find files starting with "convert"',
+            'find ~/projects_priv -type f -iname "convert*"')
+    example('Find in current folder (case sensitive)',
+            'find -type f -name "convert*"')
+    example('Include folders in search',
+            'find ~/projects_priv -iname "convert*"')
 
-if showAll or sys.argv[1] == 'regex':
-  print(YELLOW+'________REGEX________'+ENDC)
-  print(' ')
-  print(" Find all bananas and print 3 chars before and 9 chars after:")
-  print( BOLD+" mtt fromc | grep -o -P '.{0,3}banana.{0,9}' "+ENDC)
-  print(' ')
-  print(" Find all Bananas print until comma sign:")
-  print( BOLD+" grep -o -P '(Banana.*?),' < ./file1.csv > ~/Desktop/output.txt  "+ENDC)
-  print(' ')
-  print(" Find/replace captured group (intellij/vscode):")
-  print( BOLD+' Search title attr in html: title="(.*)"(\\/>*) '+ENDC)
-  print( BOLD+' Replace with title tag: $2<title>$1</title> '+ENDC)
-  print(' ')
+    header('GREP')
+    example('List all ids that exists in both csv',
+            'fgrep -wx -f listOfIds1.csv listOfIds2.csv >idsThatExistsInBothLists.csv')
+    example('Remove ids from idsThatExistsInBothLists that are present in listOfIds3',
+            'fgrep -wx -v -f listOfIds3.csv idsThatExistsInBothLists.csv >finalresult.csv')
 
-if showAll or sys.argv[1] == 'sed':
-  print(YELLOW+'________SED________'+ENDC)
-  print(' ')
-  print(" Replace apples with bananas in file:")
-  print( BOLD+" sed -i 's/apple/banana/g' ~/Desktop/fruits.txt"+ENDC)
-  print(' ')
+    header('SED')
+    example('Replace apples with bananas in file',
+            "sed -i 's/apple/banana/g' ~/Desktop/fruits.txt")
 
-if showAll or sys.argv[1] == 'sort':
-  print(YELLOW+'________SORT________'+ENDC)
-  print(' ')
-  print(" Find duplicates:")
-  print( BOLD+" mtt fromc | sort | uniq -cd"+ENDC)
-  print(' ')
+    header('SORT')
+    example('Find duplicates',
+            'mtt fromc | sort | uniq -cd')
 
-if showAll or sys.argv[1] == 'stat':
-  print(YELLOW+'________STAT________'+ENDC)
-  print(' ')
-  print(" List rights of files in current dir:")
-  print( BOLD+' stat -c "%A %a %n" * '+ENDC)
-  print(' ')
 
-if showAll or sys.argv[1] == 'xargs':
-  print(YELLOW+'________XARGS________'+ENDC)
-  print(' ')
-  print(" Create two text files:")
-  print( BOLD+' printf "1\\n2\\n" | xargs -i touch {}.txt'+ENDC)
-  print(' ')
-  print(" Search each word in list and output occurences for each in file:")
-  print( BOLD+' mtt fromc | xargs -I {} sh -c "grep -i {} file_with_many_rows.csv | wc -l"'+ENDC)
-  print(' ')
+def show_git():
+    header('GIT')
+    example('Merge master into feature branch',
+            'git checkout feature/PROJ-1234',
+            'git pull origin master',
+            '(Fix merge conflict...)',
+            'git commit',
+            'git push origin HEAD')
+    example('Show stash list',
+            'git stash list | head')
+    example('Show changed files in a stash',
+            'git stash show stash@{2} | cat')
+    divider()
+    example('List all branches that would be pruned',
+            'git remote prune origin --dry-run')
+    example('Prune the branches (delete ref to dead remote br)',
+            'git remote prune origin')
+    example('Grep all merged branches (except develop and release branches)',
+            "git br --merged develop | grep -E 'conflict/|bugfix/|feature/'")
+    example('Remove the local branches',
+            "git br --merged develop | grep -E 'conflict/|bugfix/|feature/' | xargs -I {} git br -d {}")
+    divider()
+    example('Show log of current branch commits',
+            'git log --pretty=oneline --since="3 years ago" | grep PROJ-1234')
+    example('Changes from other branch without commiting',
+            "git log --pretty=format:'%H' --no-merges --reverse $(git merge-base master feature/PROJ-1234)..feature/PROJ-1234 | tr '\\n' ' '",
+            'git cherry-pick --no-commit <commit1> <commit2> <...>')
 
+
+def show_net():
+    header('NET')
+    example('Print network device info',
+            "ip addr | grep -A 999 -B 999 -E 'state UP|wlp|enx|10\\.'")
+    example('Scan network devices with nmap',
+            'sudo nmap -sn 192.168.50.1/24')
+
+
+def show_shell():
+    header('OUTPUT')
+    example('Print last lines of file out.txt every 3 seconds',
+            'watch -n 3 tail out.txt')
+    example('Print list with grep every 3 seconds',
+            "watch -n 3 'ls -lAh | grep test123'")
+    example('Print terminal output to file',
+            'npm run dev 2>&1 | tee ~/Desktop/npm_run_output.txt')
+
+    header('STAT')
+    example('List rights of files in current dir',
+            'stat -c "%A %a %n" *')
+
+    header('XARGS')
+    example('Create two text files',
+            'printf "1\\n2\\n" | xargs -I {} touch {}.txt')
+    example('Search each word in list and output occurences for each in file',
+            'mtt fromc | xargs -I {} sh -c "grep -i {} file_with_many_rows.csv | wc -l"')
+
+
+categories = {
+    'search': show_search,
+    'git': show_git,
+    'net': show_net,
+    'shell': show_shell,
+}
+
+
+print()
+
+if len(sys.argv) < 2:
+    print(BOLD + 'Show all: mtt howto --showall' + ENDC)
+    print()
+    print(YELLOW + 'Use one of the following args:' + ENDC)
+    print()
+    for name in categories:
+        print('  ' + name)
+    print()
+    sys.exit()
+
+arg = sys.argv[1]
+
+if arg == '--showall':
+    for fn in categories.values():
+        fn()
+elif arg in categories:
+    categories[arg]()
