@@ -1,8 +1,8 @@
 import sys, time
 from datetime import datetime
 
-YELLOW = '\033[93m'
-ENDC = '\033[0m'
+YELLOW = '\033[93m' if sys.stdout.isatty() else ''
+ENDC = '\033[0m' if sys.stdout.isatty() else ''
 
 def normalize_to_milliseconds(ts):
     if isinstance(ts, float):
@@ -38,7 +38,9 @@ print("\n")
 if len(sys.argv) > 1:
     ts = sys.argv[1]
 else:
-    print(YELLOW + str(normalize_to_milliseconds(time.time())) + ENDC)
+    now = time.time()
+    print(YELLOW + str(normalize_to_milliseconds(now)) + ENDC)
+    print(YELLOW + datetime.fromtimestamp(now).strftime('%Y-%m-%d %H:%M:%S.%f')[:-3] + ENDC)
     exit(0)
 
 input_is_unix_ts = True
