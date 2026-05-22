@@ -25,7 +25,7 @@ scripts = []
 scripts.append(scriptInfo('toc', 'STRINGS', 'To clipboard. Read file content or echo into clipboard.', ['?filepath']))
 scripts.append(scriptInfo('fromc', 'STRINGS', 'From clipboard. Outputs clipboard content.', []))
 scripts.append(scriptInfo('base64', 'STRINGS', 'Encode/decode a base64 string.', ['string']))
-scripts.append(scriptInfo('oneline', 'STRINGS', 'Replaces newlines in text to create one line', ['string']))
+scripts.append(scriptInfo('oneline', 'STRINGS', 'Replaces newlines in clipboard text to create one line. Pass -s to separate with spaces.', ['?-s']))
 
 scripts.append(scriptInfo('portuse', 'SYSTEM', 'Display which process is using a specific port.', ['port']))
 scripts.append(scriptInfo('fileinfo', 'SYSTEM', 'Get details about a file.', ['filepath']))
