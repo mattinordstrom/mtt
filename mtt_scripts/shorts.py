@@ -51,6 +51,8 @@ if showAll or sys.argv[1] == 'kitty':
   print(' Switch tab:               ' + BOLD+'Ctrl + Shift + <arrow>'+ENDC)
   print(' Search word:              ' + BOLD+'Ctrl + Shift + h (then /search_word)'+ENDC)
   print(' Detach pane:              ' + BOLD+'Ctrl + F2'+ENDC)
+  print(' Horiz/Vert split:         ' + BOLD+'Ctrl + Shift + r'+ENDC)
+  print(' Move win backwards:       ' + BOLD+'Ctrl + Shift + b'+ENDC)
   print(' ')
   print(' ')
 
