@@ -8,7 +8,7 @@ ENDC = '\033[0m'
 
 def get_permissions(mode):
     """Get file permissions in numeric and symbolic form."""
-    numeric = oct(mode)[-3:]
+    numeric = format(stat.S_IMODE(mode), '04o')
     symbolic = '-'
     if stat.S_ISDIR(mode):
         symbolic = 'd'
@@ -41,13 +41,13 @@ def get_permissions(mode):
 def format_size(size_in_bytes):
     if size_in_bytes >= 1024 * 1024 * 1024:
         size = round(size_in_bytes / (1024 * 1024 * 1024), 2)
-        return f"{size} GB"
+        return f"{size} GiB"
     elif size_in_bytes >= 1024 * 1024:
         size = round(size_in_bytes / (1024 * 1024), 2)
-        return f"{size} MB"
+        return f"{size} MiB"
     elif size_in_bytes >= 1024:
         size = round(size_in_bytes / 1024, 2)
-        return f"{size} KB"
+        return f"{size} KiB"
     return f"{size_in_bytes} bytes"
 
 def get_list_files(dir_to_list, show_only_directories, recursive=False):
@@ -58,26 +58,36 @@ def get_list_files(dir_to_list, show_only_directories, recursive=False):
     if recursive:
         for folder, subs, files in os.walk(dir_to_list):
             print(BOLD_BLUE + f"\n{folder}" + ENDC)
-        
+
             for dir_name in subs:
                 print(BOLD_BLUE + f"  {os.path.join(folder, dir_name)}" + ENDC)
-            
-            for file_name in files:
-                print(f"  {os.path.join(folder, file_name)}")
+
+            if not show_only_directories:
+                for file_name in files:
+                    print(f"  {os.path.join(folder, file_name)}")
 
         return []
 
-    entries = os.listdir(dir_to_list)
+    if not os.path.isdir(dir_to_list):
+        # Mirror `ls <file>`: list the single entry instead of crashing.
+        parent = os.path.dirname(dir_to_list.rstrip('/')) or '.'
+        entries = [os.path.basename(dir_to_list.rstrip('/'))]
+        dir_to_list = parent
+    else:
+        entries = os.listdir(dir_to_list)
     for entry in sorted(entries):
         full_path = os.path.join(dir_to_list, entry)
         try:
-            mode = os.lstat(full_path).st_mode
-            size_in_bytes = os.path.getsize(full_path)
-            mtime = time.strftime("%b %d %Y %H:%M", time.localtime(os.path.getmtime(full_path)))
+            st = os.lstat(full_path)
+            mode = st.st_mode
+            size_in_bytes = st.st_size
+            mtime = time.strftime("%b %d %Y %H:%M", time.localtime(st.st_mtime))
             numeric_perm, symbolic_perm = get_permissions(mode)
 
-            uid = os.lstat(full_path).st_uid
-            user = pwd.getpwuid(uid).pw_name
+            try:
+                user = pwd.getpwuid(st.st_uid).pw_name
+            except KeyError:
+                user = str(st.st_uid)
             if len(user) > 10:
                 user = user[:10] + "..."
 
@@ -87,15 +97,15 @@ def get_list_files(dir_to_list, show_only_directories, recursive=False):
             elif stat.S_ISLNK(mode):
                 target = os.readlink(full_path)
                 formattedName = formattedName + ' -> ' + target
-            elif mode & stat.S_IXUSR:
+            elif mode & (stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH):
                 formattedName = GREEN + entry + ENDC
-            
+
             size_str = format_size(size_in_bytes)
 
             if not show_only_directories or (show_only_directories and stat.S_ISDIR(mode)):
                 output.append([symbolic_perm, numeric_perm, user, size_str, mtime, formattedName])
-        except FileNotFoundError:
-            print(f"FileNotFoundError: {full_path} not found")
+        except OSError as e:
+            print(f"{type(e).__name__}: {full_path}: {e.strerror}")
     
     return output
 
