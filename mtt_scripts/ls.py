@@ -1,10 +1,14 @@
-import os, stat, time, argparse, pwd
+import os, stat, time, argparse, pwd, sys
 from tabulate import tabulate
 
 
 BOLD_BLUE = '\033[1;94m'
 GREEN = '\033[92m'
 ENDC = '\033[0m'
+
+# Blank the colors when piped, so escape codes don't end up in files or grep.
+if not sys.stdout.isatty():
+    BOLD_BLUE = GREEN = ENDC = ''
 
 def get_permissions(mode):
     """Get file permissions in numeric and symbolic form."""
@@ -56,11 +60,16 @@ def get_list_files(dir_to_list, show_only_directories, recursive=False):
     dir_to_list = os.path.abspath(dir_to_list) 
 
     if recursive:
-        for folder, subs, files in os.walk(dir_to_list):
+        def onerror(e):
+            # os.walk ignores errors by default, silently omitting any
+            # directory it can't read. Report them instead.
+            print(f"{type(e).__name__}: {e.filename}: {e.strerror}")
+
+        for folder, subs, files in os.walk(dir_to_list, onerror=onerror):
             print(BOLD_BLUE + f"\n{folder}" + ENDC)
 
-            for dir_name in subs:
-                print(BOLD_BLUE + f"  {os.path.join(folder, dir_name)}" + ENDC)
+            # No need to print subs: os.walk yields each of them as its own
+            # folder on a later pass, so listing them here shows them twice.
 
             if not show_only_directories:
                 for file_name in files:
@@ -74,7 +83,11 @@ def get_list_files(dir_to_list, show_only_directories, recursive=False):
         entries = [os.path.basename(dir_to_list.rstrip('/'))]
         dir_to_list = parent
     else:
-        entries = os.listdir(dir_to_list)
+        try:
+            entries = os.listdir(dir_to_list)
+        except OSError as e:
+            print(f"{type(e).__name__}: {dir_to_list}: {e.strerror}")
+            return []
     for entry in sorted(entries):
         full_path = os.path.join(dir_to_list, entry)
         try:
@@ -120,4 +133,5 @@ if __name__ == "__main__":
     dir_to_list = os.path.expanduser(args.dir_to_list.rstrip('/') + '/')
     
     output = get_list_files(dir_to_list, args.d, args.r)
-    print(tabulate(output, headers=[], tablefmt="plain"))
+    if output:
+        print(tabulate(output, headers=[], tablefmt="plain"))
