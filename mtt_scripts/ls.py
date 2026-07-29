@@ -4,11 +4,21 @@ from tabulate import tabulate
 
 BOLD_BLUE = '\033[1;94m'
 GREEN = '\033[92m'
+LIGHT_GRAY = '\033[90m'
 ENDC = '\033[0m'
 
 # Blank the colors when piped, so escape codes don't end up in files or grep.
 if not sys.stdout.isatty():
-    BOLD_BLUE = GREEN = ENDC = ''
+    BOLD_BLUE = GREEN = LIGHT_GRAY = ENDC = ''
+
+def format_summary(dir_count, file_count, link_count):
+    """Light gray one-liner counting what was listed."""
+    parts = [
+        f"{dir_count} folder{'' if dir_count == 1 else 's'}",
+        f"{file_count} file{'' if file_count == 1 else 's'}",
+        f"{link_count} symlink{'' if link_count == 1 else 's'}",
+    ]
+    return LIGHT_GRAY + ', '.join(parts) + ENDC
 
 def get_permissions(mode):
     """Get file permissions in numeric and symbolic form."""
@@ -60,21 +70,36 @@ def get_list_files(dir_to_list, show_only_directories, recursive=False):
     dir_to_list = os.path.abspath(dir_to_list) 
 
     if recursive:
+        dir_count = file_count = link_count = 0
+
         def onerror(e):
             # os.walk ignores errors by default, silently omitting any
             # directory it can't read. Report them instead.
             print(f"{type(e).__name__}: {e.filename}: {e.strerror}")
 
         for folder, subs, files in os.walk(dir_to_list, onerror=onerror):
+            dir_count += 1
             print(BOLD_BLUE + f"\n{folder}" + ENDC)
 
-            # No need to print subs: os.walk yields each of them as its own
-            # folder on a later pass, so listing them here shows them twice.
+            # Real subdirectories come back as their own folder on a later
+            # pass, so printing them here would show them twice. Symlinked
+            # ones don't, because os.walk never descends into them.
+            for dir_name in sorted(subs):
+                full_path = os.path.join(folder, dir_name)
+                if os.path.islink(full_path):
+                    link_count += 1
+                    print(BOLD_BLUE + f"  {full_path}" + ENDC + ' -> ' + os.readlink(full_path))
 
             if not show_only_directories:
                 for file_name in files:
-                    print(f"  {os.path.join(folder, file_name)}")
+                    full_path = os.path.join(folder, file_name)
+                    if os.path.islink(full_path):
+                        link_count += 1
+                    else:
+                        file_count += 1
+                    print(f"  {full_path}")
 
+        print(f"\n{format_summary(dir_count, file_count, link_count)}")
         return []
 
     if not os.path.isdir(dir_to_list):
@@ -135,3 +160,8 @@ if __name__ == "__main__":
     output = get_list_files(dir_to_list, args.d, args.r)
     if output:
         print(tabulate(output, headers=[], tablefmt="plain"))
+        # The symbolic permissions start with 'd', 'l' or '-'.
+        dir_count = sum(1 for row in output if row[0][0] == 'd')
+        link_count = sum(1 for row in output if row[0][0] == 'l')
+        file_count = len(output) - dir_count - link_count
+        print(f"\n{format_summary(dir_count, file_count, link_count)}")
