@@ -5,3 +5,7 @@ resources/miniodata
 resources/minioconfig
 resources/mongodb_data
 resources/unifi-network-application
+
+.env_searxng
+searxng
+xtts
