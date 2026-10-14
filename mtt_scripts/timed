@@ -1,0 +1,75 @@
+#!/bin/zsh
+
+if (( $# == 0 )); then
+  printf "No command specified. Usage: mtt timed <command> [args...]\n"
+  exit 1
+fi
+
+zmodload zsh/datetime
+
+GREY=$'\e[90m'
+GREEN=$'\e[1;32m'
+RED=$'\e[1;31m'
+ENDC=$'\e[0m'
+
+format_duration() {
+  local ms=$1
+  local h=$(( ms / 3600000 ))
+  local m=$(( ms % 3600000 / 60000 ))
+  local s=$(( ms % 60000 / 1000 ))
+  local frac=$(( ms % 1000 ))
+
+  if (( h > 0 )); then
+    printf "%dh %02dm %02ds" "$h" "$m" "$s"
+  elif (( m > 0 )); then
+    printf "%dm %02d.%03ds" "$m" "$s" "$frac"
+  else
+    printf "%d.%03ds" "$s" "$frac"
+  fi
+}
+
+if (( $+commands[$1] || $+builtins[$1] )) || [[ -x $1 ]]; then
+  cmd=${(j: :)${(q)@}}
+else
+  # Aliases and functions only exist in ~/.zshrc; load it before the clock starts so its ~1s startup isn't timed
+  source ~/.zshrc
+  # oh-my-zsh/starship hooks would otherwise print terminal title escapes before every line below
+  preexec_functions=() precmd_functions=()
+  if (( $# == 1 )); then
+    cmd=$1
+  else
+    cmd=${(j: :)${(q)@}}
+  fi
+fi
+
+# A handler (not '' which would be inherited as ignored) lets Ctrl+C kill the command but still reach the summary
+trap ':' INT
+
+start=$EPOCHREALTIME
+strftime -s started '%Y-%m-%d %H:%M:%S' ${start%.*}
+printf "${GREY}Started:  %s${ENDC}\n" "$started"
+
+eval "$cmd"
+rc=$?
+
+end=$EPOCHREALTIME
+integer duration_ms=$(( (end - start) * 1000 ))
+strftime -s finished '%Y-%m-%d %H:%M:%S' ${end%.*}
+
+printf "${GREY}Started:  %s${ENDC}\n" "$started"
+printf "${GREY}Finished: %s${ENDC}\n" "$finished"
+printf "${GREY}Duration: %s${ENDC}\n" "$(format_duration $duration_ms)"
+if (( rc == 0 )); then
+  printf "${GREEN}✔ Success${ENDC}\n"
+else
+  printf "${RED}✘ Failed (exit %d)${ENDC}\n" "$rc"
+fi
+
+exit $rc
+
+# Examples:
+# mtt timed mvn install
+# mtt timed l
+#
+# Pipelines and chains go in one quoted string:
+# mtt timed 'cat file.txt | grep foo && echo found'
