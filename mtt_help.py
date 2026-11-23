@@ -38,6 +38,7 @@ scripts.append(scriptInfo('convert', 'DEV_TOOLS', 'Converts xml/json from clipbo
 scripts.append(scriptInfo('uuidgen', 'DEV_TOOLS', 'Generate random uuid or ulid.', ['?-ulid']))
 scripts.append(scriptInfo('compose', 'DEV_TOOLS', 'Docker compose template.', []))
 scripts.append(scriptInfo('timed', 'DEV_TOOLS', 'Run a command and print start time, finish time, duration and exit status.', ['command', '?args']))
+scripts.append(scriptInfo('claudeinv', 'DEV_TOOLS', 'List user-level Claude memories, skills and commands. -f shows full descriptions.', ['?-f']))
 
 scripts.append(scriptInfo('cat', 'MISC', 'List mtt scripts dir. Or outputs a scripts content.', ['?scriptname']))
 scripts.append(scriptInfo('extract', 'MISC', 'Extract compressed file. (tar, 7z, zip...)', ['filepath']))
