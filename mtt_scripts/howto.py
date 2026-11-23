@@ -110,11 +110,23 @@ def show_shell():
             'mtt fromc | xargs -I {} sh -c "grep -i {} file_with_many_rows.csv | wc -l"')
 
 
+def show_mac():
+    header('MAC SPECIAL CHARACTERS (SWEDISH LAYOUT)')
+    example('Pipe |', '⌥ + 7')
+    example('Brackets [ ]', '⌥ + 8 / ⌥ + 9')
+    example('Braces { }', '⇧ + ⌥ + 8 / ⇧ + ⌥ + 9')
+    example('Tilde ~ (dead key, press Space after)', '⌥ + ¨  then Space')
+    example('Backslash \\', '⇧ + ⌥ + 7')
+    example('See what every key types',
+            'System Settings → Keyboard → Input Sources → Show Input menu in menu bar → Keyboard Viewer')
+
+
 categories = {
     'search': show_search,
     'git': show_git,
     'net': show_net,
     'shell': show_shell,
+    'mac': show_mac,
 }
 
 
