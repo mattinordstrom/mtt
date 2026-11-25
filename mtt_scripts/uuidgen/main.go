@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"math/rand"
@@ -34,7 +35,10 @@ func main() {
 		fmt.Fprintf(os.Stderr, "ERROR: failed to initialize clipboard: %v\n", err)
 		os.Exit(1)
 	}
-	clipboard.Write(clipboard.FmtText, []byte(id))
+	if _, err := clipboard.Write(context.Background(), clipboard.FmtText, []byte(id)); err != nil {
+		fmt.Fprintf(os.Stderr, "ERROR: failed to write clipboard: %v\n", err)
+		os.Exit(1)
+	}
 
 	// Need a short sleep here to ensure clipboard is updated (TODO use wl-copy instead on Wayland?)
 	time.Sleep(300 * time.Millisecond)
