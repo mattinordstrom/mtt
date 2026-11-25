@@ -26,7 +26,7 @@ Practical implication: when adding a new command, the filename in `mtt_scripts/`
 
 - **Bash** for the dispatcher and most scripts. Many scripts use ANSI escape codes or `tput setaf` for color; expect them to be run in an interactive terminal.
 - **Python 3.14** (pinned via `.python-version`) in a project-local venv at `.mtt_venv/`. All Python scripts run through this venv via the dispatcher; running them with system `python3` will likely fail on imports. Dependencies live in `requirements.txt` (`pyperclip`, `xmltodict`, `dicttoxml`, `defusedxml`, `chardet`, `tabulate`).
-- **Go 1.25** module rooted at `mtt_scripts/` (single `go.mod`/`go.sum` shared by all Go subcommands). New Go commands go in `mtt_scripts/<name>/main.go` so the dispatcher's `go run -C mtt_scripts/ ./<name>` invocation finds them. Currently used for `uuidgen` (UUID/ULID + clipboard write via `golang.design/x/clipboard`).
+- **Go 1.27** module rooted at `mtt_scripts/` (single `go.mod`/`go.sum` shared by all Go subcommands). New Go commands go in `mtt_scripts/<name>/main.go` so the dispatcher's `go run -C mtt_scripts/ ./<name>` invocation finds them. Currently used for `uuidgen` (UUID/ULID + clipboard write via `golang.design/x/clipboard`).
 
 ## Setup
 
